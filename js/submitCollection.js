@@ -11,12 +11,10 @@
     if (file.name.endsWith(".txt")) {
         alert('The file to upload must be a .zip file (not the output_log.txt file directly) and be less than 20 MB.');
         return;
-    }
-    else if (file.name.endsWith(".zip") === false) {
+    } else if (file.name.endsWith(".zip") === false) {
         alert('The file to upload must be a .zip file (not another extension or compression method like rar) and be less than 20 MB.');
         return;
-    }
-    else if (file.size > 52428800) {
+    } else if (file.size > 52428800) {
         alert('Your file is too big. Try deleting the output_log.txt file, reopen the MTG Arena game, go browse your collection and close the game. This will generate a very small valid output_log.txt that you can ZIP and send here.');
         return;
     }
@@ -25,7 +23,7 @@
     fdata.append("fileCollection", file);
 
     vueApp.loadData('collectionPost', true);
-    sendAjaxPost('/api/User/Collection', fdata, false, function (statuscode, body) {
+    sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Collection', fdata, false, function (statuscode, body) {
         vueApp.loadData('collectionPost', false);
         try {
             // Can throw exception if file sent was too large, as we receive HTML page saying 404 blah blah
@@ -51,11 +49,9 @@
 
                 vueApp.currentSection = sectionMyData;
                 vueApp.loadPage(pageCollection);
-            }
-            else if (statuscode === 401) {
+            } else if (statuscode === 401) {
                 alert('Unauthorized access');
-            }
-            else {
+            } else {
                 alert(response.error);
             }
         } catch (e) {
