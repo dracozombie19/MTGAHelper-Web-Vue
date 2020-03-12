@@ -55,7 +55,7 @@
                 $.pivotUtilities.plotly_renderers);
 
             var urlParams = new URLSearchParams(window.location.search);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/MtgaDeckAnalysis?deckId=' + urlParams.get('deckId'), function (statuscode, body) {
+            sendAjaxGet('/api/User/MtgaDeckAnalysis?deckId=' + urlParams.get('deckId'), function (statuscode, body) {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     $('#deckName').html(data.analysis.deckName);

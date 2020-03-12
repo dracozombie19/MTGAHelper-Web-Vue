@@ -23,7 +23,7 @@
     fdata.append("fileCollection", file);
 
     vueApp.loadData('collectionPost', true);
-    sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Collection', fdata, false, function (statuscode, body) {
+    sendAjaxPost('/api/User/Collection', fdata, false, function (statuscode, body) {
         vueApp.loadData('collectionPost', false);
         try {
             // Can throw exception if file sent was too large, as we receive HTML page saying 404 blah blah
@@ -47,7 +47,7 @@
                     vueApp.getDeckTracked(id);
                 }
 
-                vueApp.currentSection = sectionMyData;
+                vueApp.currentSection = constants.sectionMyData;
                 vueApp.loadPage(pageCollection);
             } else if (statuscode === 401) {
                 alert('Unauthorized access');

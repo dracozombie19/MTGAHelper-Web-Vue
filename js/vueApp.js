@@ -1,136 +1,53 @@
-﻿const ThemeHelper = function () {
-    const preloadTheme = (href) => {
-        let link = document.createElement('link');
-        link.rel = "stylesheet";
-        link.href = href;
-        document.head.appendChild(link);
-
-        return new Promise((resolve, reject) => {
-            link.onload = e => {
-                const sheet = e.target.sheet;
-                sheet.disabled = true;
-                resolve(sheet);
-            };
-            link.onerror = reject;
-        });
-    };
-
-    const selectTheme = (themes, name) => {
-        //if (name && !themes[name]) {
-        //    throw new Error(`"${name}" has not been defined as a theme.`);
-        //}
-        Object.keys(themes).forEach(n => themes[n].disabled = (n !== name));
-    };
-
-    let themes = {};
-
-    return {
-        add(name, href) {
-            return preloadTheme(href).then(s => themes[name] = s);
-        },
-        set theme(name) {
-            selectTheme(themes, name);
-        },
-        get theme() {
-            return Object.keys(themes).find(n => !themes[n].disabled);
-        }
-    };
+﻿import ApiService from "./ajax.js";
+import * as constants from "./common/constants.js";
+export {
+    constants
 };
-
-const sectionGeneral = 'general';
-const sectionMyData = 'myData';
-
-const pageHome = 'home';
-const pageNews = 'news';
-const pageArticles = 'articles';
-const pageArticleSelected = 'articleSelected';
-const pageStreams = 'streams';
-const pageMeta = 'meta';
-const pageAllCards = 'cards';
-const pageDecks = 'decks';
-const pageMasteryPass = 'masteryPass';
-const pageDeckSelected = 'deckSelected';
-const pageCollection = 'collection';
-const pageMtgaDecks = 'mtgaDecks';
-const pageMtgaDeckDetailCards = 'mtgaDeckDetailsCards';
-const pageMtgaDeckDetailMatches = 'mtgaDeckDetailsMatches';
-//const pageMtgaDeckSelected = 'mtgaDeckSelected';
-const pageHistory = 'history';
-const pageHistorySelected = 'historySelected';
-const pageInventory = 'inventory';
-const pageDraftBeforeBoosters = 'draftsBeforeBoosters';
-const pageMatchDetails = 'matchDetails';
-const pageScrapers = 'scrapers';
-const pageDecksTracked = 'decksTracked';
-const pageDashboardSummary = 'dashboardSummary';
-const pageDashboardDetails = 'dashboardDetails';
-const pageProfile = 'profile';
-const pageCustomDecks = 'customDecks';
-const pageLands = 'lands';
-const pageContact = 'contact';
-const pageChangelog = 'changelog';
-const pagePrivacy = 'privacy';
-const pageTerms = 'terms';
-const pageAbout = 'about';
-const pageThanks = 'thanks';
-const pageBacklog = 'backlog';
-
-const pageHistoryCards = 'cards';
-const pageHistoryEconomyEvents = 'economyEvents';
-const pageHistoryMatches = 'matches';
-//const pageHistoryRankUpdates = 'rankUpdates';
-
-const loadSignup = 'signup';
-const loadResendCode = 'loadResendCode';
-
-const loadDeck = 'deck';
-const loadDeckTracked = 'deckTracked';
-const loadMtgaDeck = 'mtgaDeck';
 
 var routes = [
     //{ pageName: pageThanks, route: 'thanks' },
     {
-        pageName: pageCollection,
+        pageName: constants.pageCollection,
         route: 'my/collection'
     },
     {
-        pageName: pageInventory,
+        pageName: constants.pageInventory,
         route: 'my/inventory'
     },
     {
-        pageName: pageMtgaDecks,
+        pageName: constants.pageMtgaDecks,
         route: 'my/mtgadecks'
     },
     {
-        pageName: pageHistory,
+        pageName: constants.pageHistory,
         route: 'my/history'
     },
     {
-        pageName: pageHistorySelected,
+        pageName: constants.pageHistorySelected,
         route: 'my/history'
     },
     {
-        pageName: pageDecksTracked,
+        pageName: constants.pageDecksTracked,
         route: 'my/trackedDecks'
     },
     {
-        pageName: pageDashboardSummary,
+        pageName: constants.pageDashboardSummary,
         route: 'my/missingCardsSummary'
     },
     {
-        pageName: pageDashboardDetails,
+        pageName: constants.pageDashboardDetails,
         route: 'my/missingCardsDetails'
     },
     {
-        pageName: pageScrapers,
+        pageName: constants.pageScrapers,
         route: 'my/sources'
     },
     {
-        pageName: pageCustomDecks,
+        pageName: constants.pageCustomDecks,
         route: 'my/decks'
     },
     {
-        pageName: pageMasteryPass,
+        pageName: constants.pageMasteryPass,
         route: 'my/masteryPass'
     }
 ];
@@ -143,8 +60,9 @@ var vueApp = new Vue({
             light: "css/bulma.min.css",
             dark: "css/bulma-dark.min.css"
         },
-        themeHelper: new ThemeHelper(),
+        themeHelper: new constants.ThemeHelper(),
         dynamicLanding: true,
+        constants: constants,
 
         //scryfallImagesPrefix: 'https://img.scryfall.com/cards',
         iconLand: 'https://c-4tvylwolbz88x24nhtlwlkphx2ejbyzljkux2ejvt.g00.gamepedia.com/g00/3_c-4tan.nhtlwlkph.jvt_/c-4TVYLWOLBZ88x24oaawzx3ax2fx2fnhtlwlkph.jbyzljku.jvtx2ftanzhschapvu_nhtlwlkphx2f0x2f04x2fShuk_zftivs.zcnx3fclyzpvux3dj4691m071m4544409k709i17hj9k41j1x26p87j.thyrx3dpthnl_$/$/$/$/$',
@@ -186,11 +104,11 @@ var vueApp = new Vue({
         //loginWithUserId: '',
 
         navbarBurgerActive: false,
-        //currentSection: sectionGeneral,
-        currentPage: pageCollection,
-        currentPageHistory: pageHistoryEconomyEvents,
+        //currentSection: constants.sectionGeneral,
+        currentPage: constants.pageCollection,
+        currentPageHistory: constants.pageHistoryEconomyEvents,
         currentPageProfileLandsType: 'Plains',
-        currentPageMtgaDeckDetail: pageMtgaDeckDetailCards,
+        currentPageMtgaDeckDetail: constants.pageMtgaDeckDetailCards,
         currentPageCollectionColor: 'W',
 
         loading: [],
@@ -490,7 +408,7 @@ var vueApp = new Vue({
         this.getNews();
         this.getArticles();
 
-        sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Changelog', function (statuscode, body) {
+        ApiService.sendAjaxGet('/api/Misc/Changelog', function (statuscode, body) {
             vueApp.modelChangelog = JSON.parse(body);
         });
     },
@@ -511,7 +429,7 @@ var vueApp = new Vue({
                 return;
             }
 
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signin?email=' + encodeURIComponent(this.signin.email) + '&password=' + encodeURIComponent(this.signin.password), (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Account/Signin?email=' + encodeURIComponent(this.signin.email) + '&password=' + encodeURIComponent(this.signin.password), (statuscode, body) => {
                 vueApp.modelAccount = JSON.parse(body);
                 vueApp.showModalLogin = vueApp.modelAccount.isAuthenticated === false;
                 if (vueApp.modelAccount.isAuthenticated) {
@@ -526,7 +444,7 @@ var vueApp = new Vue({
             }
 
             if (confirm('Are you sure you want to reset the password for \'' + this.signin.email + '\'?')) {
-                sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/RequestPasswordReset?email=' + encodeURIComponent(this.signin.email), (statuscode, body) => {
+                ApiService.sendAjaxGet('/api/Account/RequestPasswordReset?email=' + encodeURIComponent(this.signin.email), (statuscode, body) => {
                     vueApp.modelAccount = JSON.parse(body);
                     vueApp.showModalLogin = vueApp.modelAccount.isAuthenticated === false;
                     if (vueApp.modelAccount.isAuthenticated) {
@@ -546,9 +464,9 @@ var vueApp = new Vue({
                 email: this.signup.email,
                 password: this.signup.password
             };
-            this.loadData(loadSignup, true);
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account', body, null, (statuscode, body) => {
-                vueApp.loadData(loadSignup, false);
+            this.loadData(constants.loadSignup, true);
+            ApiService.sendAjaxPost('/api/Account', body, null, (statuscode, body) => {
+                vueApp.loadData(constants.loadSignup, false);
                 vueApp.modelAccount = JSON.parse(body);
             });
         },
@@ -566,9 +484,9 @@ var vueApp = new Vue({
                 };
             }
 
-            this.loadData(loadResendCode, true);
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/ResendVerificationCode', body, null, (statuscode, body) => {
-                this.loadData(loadResendCode, false);
+            this.loadData(constants.loadResendCode, true);
+            ApiService.sendAjaxPost('/api/Account/ResendVerificationCode', body, null, (statuscode, body) => {
+                this.loadData(constants.loadResendCode, false);
                 vueApp.modelAccount.message = JSON.parse(body).message;
                 //vueApp.modelAccount.status = '';
             });
@@ -609,13 +527,13 @@ var vueApp = new Vue({
             return set;
         },
         loadPage(pageName, doPushState, prm) {
-            if (pageName === pageHistory) {
+            if (pageName === constants.pageHistory) {
                 if (this.modelUserHistory.totalItems === 0)
                     this.refreshUserHistory();
-            } else if (pageName === pageMtgaDecks) {
+            } else if (pageName === constants.pageMtgaDecks) {
                 if (this.modelMtgaDecksSummary.length === 0)
                     this.refreshMtgaDeckSummary();
-            } else if (pageName === pageDraftBeforeBoosters) {
+            } else if (pageName === constants.pageDraftBeforeBoosters) {
                 this.refreshDraftsCalculator();
             }
 
@@ -633,7 +551,7 @@ var vueApp = new Vue({
             //    pageName === pageDecks ||
             //    pageName === pageMeta ||
             //    pageName === pageStreams) {
-            //    this.currentSection = sectionGeneral;
+            //    this.currentSection = constants.sectionGeneral;
             //}
             //else if (pageName === pageDecksTracked ||
             //    pageName === pageCollection ||
@@ -643,15 +561,15 @@ var vueApp = new Vue({
             //    pageName === pageScrapers ||
             //    pageName === pageDashboardSummary ||
             //    pageName === pageDashboardDetails) {
-            //    this.currentSection = sectionMyData;
+            //    this.currentSection = constants.sectionMyData;
             //}
 
             var route = pageName;
 
-            if (pageName === pageDeckSelected) {
-                route = pageDecks + '/' + prm;
-            } else if (pageName === pageArticleSelected) {
-                route = pageArticles + '/' + prm;
+            if (pageName === constants.pageDeckSelected) {
+                route = constants.pageDecks + '/' + prm;
+            } else if (pageName === constants.pageArticleSelected) {
+                route = constants.pageArticles + '/' + prm;
             }
             //else if (pageName === pageMtgaDeckSelected) {
             //    route = 'my/' + pageMtgaDecks + '/' + prm;
@@ -692,7 +610,7 @@ var vueApp = new Vue({
             return this.loading.indexOf(key) >= 0;
         },
         isLoadingLotsOfDecks() {
-            return this.modelUserDecks.decks.length >= this.lotsOfDecks && this.loading.indexOf(pageDecksTracked) >= 0;
+            return this.modelUserDecks.decks.length >= this.lotsOfDecks && this.loading.indexOf(constants.pageDecksTracked) >= 0;
         },
         isNotificationActive(key) {
             return this.modelUser.notificationsInactive.indexOf(key) < 0;
@@ -703,7 +621,7 @@ var vueApp = new Vue({
             this.modelUserCollectionFiltered.filters.showMissing = true;
             this.modelUserCollectionFiltered.filters.showOnlyInBoosters = true;
             vueApp.filterCollection();
-            this.loadPage(pageCollection);
+            this.loadPage(constants.pageCollection);
         },
         showCard(imageUrl) {
             if (imageUrl === null) {
@@ -734,7 +652,7 @@ var vueApp = new Vue({
         },
         //tryToLoginWithUserId() {
         //    vueApp.loadData('tryToLoginWithUserId', true);
-        //    sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/FromUserId?id=' + this.loginUserId, function (statuscode, body) {
+        //    ApiService.sendAjaxGet('/api/User/FromUserId?id=' + this.loginUserId, function (statuscode, body) {
         //        var data = JSON.parse(body);
         //        vueApp.loadData('tryToLoginWithUserId', false);
 
@@ -749,7 +667,7 @@ var vueApp = new Vue({
         //},
         changeAccountUserId() {
             vueApp.loadData('changeAccountUserId', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/changeAccountUserId?userId=' + this.accountUserId, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/User/changeAccountUserId?userId=' + this.accountUserId, function (statuscode, body) {
                 var data = JSON.parse(body);
                 vueApp.loadData('changeAccountUserId', false);
 
@@ -790,7 +708,7 @@ var vueApp = new Vue({
             vueApp.modelUser.weightsProposed = weightsProposed;
         },
         registerUser() {
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Register', function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/User/Register', function (statuscode, body) {
                 var data = JSON.parse(body);
                 vueApp.modelUser.id = data.userId;
                 vueApp.modelUser.isSupporter = data.isSupporter;
@@ -814,7 +732,7 @@ var vueApp = new Vue({
                 vueApp.modelUser.notificationsInactive = data.notificationsInactive;
                 vueApp.signin.email = data.email;
 
-                sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Preferences', function (statuscode, body) {
+                ApiService.sendAjaxGet('/api/User/Preferences', function (statuscode, body) {
                     var data = JSON.parse(body);
                     if (statuscode === 200) {
                         vueApp.themeIsDark = (data.userPreferences.ThemeIsDark.toLowerCase() === 'true');
@@ -832,11 +750,11 @@ var vueApp = new Vue({
                 var urlParams = new URLSearchParams(window.location.search);
                 vueApp.loadPageFromUrl(urlParams.get('r'), true);
 
-                sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account', (statuscode, body) => {
+                ApiService.sendAjaxGet('/api/Account', (statuscode, body) => {
                     vueApp.modelAccount = JSON.parse(body);
                 });
 
-                sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Cards', (statuscode, body) => {
+                ApiService.sendAjaxGet('/api/Misc/Cards', (statuscode, body) => {
                     vueApp.modelAllCards = JSON.parse(body).cards;
                 });
 
@@ -869,19 +787,19 @@ var vueApp = new Vue({
                 if (pageName === 'my')
                     pageName = routes[findWithAttr(routes, 'route', route)].pageName;
 
-                if (pageName === pageLands)
+                if (pageName === constants.pageLands)
                     this.getLands();
 
                 if (routeParts[0] !== 'my' && routeParts.length > 1) {
                     prm = routeParts[1];
                     switch (pageName) {
-                        case pageDecks:
-                            pageName = pageDeckSelected;
+                        case constants.pageDecks:
+                            pageName = constants.pageDeckSelected;
                             var hash = prm.split('-').pop(); // pop gets the last item
                             this.getDeckByHash(hash);
                             break;
-                        case pageArticles:
-                            pageName = pageArticleSelected;
+                        case constants.pageArticles:
+                            pageName = constants.pageArticleSelected;
                             this.modelArticleSelected = this.modelArticles[findWithAttr(this.modelArticles, 'id', prm)];
                             break;
                     }
@@ -899,7 +817,7 @@ var vueApp = new Vue({
             if (refreshCollection) {
                 this.loadData('collectionGet', true);
                 this.isAppLoaded = true;
-                sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Collection', (statuscode, body) => {
+                ApiService.sendAjaxGet('/api/User/Collection', (statuscode, body) => {
                     vueApp.loadData('collectionGet', false);
                     vueApp.modelUser.collection = JSON.parse(body);
 
@@ -908,7 +826,7 @@ var vueApp = new Vue({
                     }
 
                     if (vueApp.dynamicLanding && vueApp.modelUser.collection.cards.length > 0)
-                        vueApp.currentSection = sectionMyData;
+                        vueApp.currentSection = constants.sectionMyData;
 
                     if (vueApp.modelUser.collection.cards.length === 0) {
                         document.getElementsByTagName('html')[0].setAttribute('class', 'adjustBgPos');
@@ -927,7 +845,7 @@ var vueApp = new Vue({
         },
         refreshCardsMissing() {
             this.loadData('collectionMissingGet', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Collection/Missing', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/Collection/Missing', (statuscode, body) => {
                 vueApp.loadData('collectionMissingGet', false);
                 vueApp.modelUserCollectionFiltered.cardsMissing = JSON.parse(body).cardsMissing;
             });
@@ -935,13 +853,13 @@ var vueApp = new Vue({
         refreshMasteryPass(initRequest) {
             if (typeof initRequest === 'undefined') initRequest = true;
 
-            var request = 'https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/MasteryPass';
+            var request = '/api/User/MasteryPass';
             if (initRequest === false)
                 request += '?dailyWins=' + this.modelMasteryPass.expectedDailyWins + '&weeklyWins=' + this.modelMasteryPass.expectedWeeklyWins;
 
-            this.loadData(pageMasteryPass, true);
-            sendAjaxGet(request, (statuscode, body) => {
-                vueApp.loadData(pageMasteryPass, false);
+            this.loadData(constants.pageMasteryPass, true);
+            ApiService.sendAjaxGet(request, (statuscode, body) => {
+                vueApp.loadData(constants.pageMasteryPass, false);
                 vueApp.modelMasteryPass = JSON.parse(body);
             });
         },
@@ -961,7 +879,7 @@ var vueApp = new Vue({
         refreshDraftsCalculator() {
             //if (typeof initRequest === 'undefined') initRequest = true;
 
-            var request = "https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/DraftBoostersCriticalPoint";
+            var request = "/api/User/DraftBoostersCriticalPoint";
             //if (initRequest === false)
             //    request += '?dailyWins=' + this.modelMasteryPass.expectedDailyWins + '&weeklyWins=' + this.modelMasteryPass.expectedWeeklyWins;
 
@@ -977,15 +895,15 @@ var vueApp = new Vue({
                 "&additionalPacks=" +
                 (parseInt(this.modelDraftsCalculator.additionalPacks) || 0);
 
-            this.loadData(pageDraftBeforeBoosters, true);
-            sendAjaxGet(request, (statuscode, body) => {
-                vueApp.loadData(pageDraftBeforeBoosters, false);
+            this.loadData(constants.pageDraftBeforeBoosters, true);
+            ApiService.sendAjaxGet(request, (statuscode, body) => {
+                vueApp.loadData(constants.pageDraftBeforeBoosters, false);
                 vueApp.modelDraftsCalculator.result = JSON.parse(body).result;
             });
         },
         refreshUserHistory() {
             this.loadData('userHistory', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/History?currentPage=' + vueApp.modelUserHistory.currentPage + '&perPage=' + vueApp.modelUserHistory.perPage, (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/History?currentPage=' + vueApp.modelUserHistory.currentPage + '&perPage=' + vueApp.modelUserHistory.perPage, (statuscode, body) => {
                 vueApp.modelUserHistory.history = JSON.parse(body).history;
                 vueApp.modelUserHistory.history2 = JSON.parse(body).history2;
                 vueApp.modelUserHistory.totalItems = JSON.parse(body).totalItems;
@@ -995,9 +913,9 @@ var vueApp = new Vue({
             });
         },
         refreshUserHistoryForDate(date) {
-            this.loadPage(pageHistorySelected);
+            this.loadPage(constants.pageHistorySelected);
             this.loadData('userHistoryForDate', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/History/' + moment(date).format('YYYYMMDD'), (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/History/' + moment(date).format('YYYYMMDD'), (statuscode, body) => {
                 vueApp.modelUserHistorySelected = JSON.parse(body).history;
                 vueApp.modelUserHistorySelected2 = JSON.parse(body).history2;
                 vueApp.modelUserHistoryMatchSelected = {};
@@ -1005,47 +923,47 @@ var vueApp = new Vue({
             });
         },
         refreshDecks: debounce(function () {
-            this.loadData(pageDecks, true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Decks?card=' + this.modelDecks.filters.card, (statuscode, body) => {
+            this.loadData(constants.pageDecks, true);
+            ApiService.sendAjaxGet('/api/Decks?card=' + this.modelDecks.filters.card, (statuscode, body) => {
                 var data = JSON.parse(body);
                 vueApp.modelDecks.decks = data.decks;
                 vueApp.modelDecks.totalDecks = data.totalDecks;
                 vueApp.filterDecks(false, false);
-                vueApp.loadData(pageDecks, false);
+                vueApp.loadData(constants.pageDecks, false);
             });
         }),
         refreshDecksTracked: debounce(function () {
 
-            this.loadData(pageDecksTracked, true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Decks?card=' + this.modelUserDecks.filters.card, (statuscode, body) => {
+            this.loadData(constants.pageDecksTracked, true);
+            ApiService.sendAjaxGet('/api/User/Decks?card=' + this.modelUserDecks.filters.card, (statuscode, body) => {
                 var data = JSON.parse(body);
                 vueApp.modelUserDecks.decks = data.decks;
                 vueApp.modelUserDecks.totalDecks = data.totalDecks;
                 vueApp.filterDecks(true, false);
-                vueApp.loadData(pageDecksTracked, false);
+                vueApp.loadData(constants.pageDecksTracked, false);
             });
         }),
         refreshUserDecks() {
             this.loadData('userdecksGet', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/CustomDecks', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/CustomDecks', (statuscode, body) => {
                 vueApp.modelUser.decks = JSON.parse(body).decks;
                 vueApp.filterDecks();
                 vueApp.loadData('userdecksGet', false);
             });
         },
         refreshMtgaDeckSummary() {
-            this.loadData(pageMtgaDecks, true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/MtgaDeckSummary', (statuscode, body) => {
+            this.loadData(constants.pageMtgaDecks, true);
+            ApiService.sendAjaxGet('/api/User/MtgaDeckSummary', (statuscode, body) => {
                 var summary = JSON.parse(body).summary;
                 // Sort descending by lastPlayed
                 summary.sort((a, b) => a.lastPlayed > b.lastPlayed ? -1 : b.lastPlayed > a.lastPlayed ? 1 : 0);
                 vueApp.modelMtgaDecksSummary = summary;
-                vueApp.loadData(pageMtgaDecks, false);
+                vueApp.loadData(constants.pageMtgaDecks, false);
             });
         },
         refreshDashboard() {
             this.loadData('dashboard', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Dashboard', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Dashboard', (statuscode, body) => {
                 if (statuscode === 200) {
                     var data = JSON.parse(body);
                     vueApp.modelDashboard.details = data.details;
@@ -1057,7 +975,7 @@ var vueApp = new Vue({
         },
         refreshUserScrapers() {
             this.loadData('userscrapersGet', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Scrapers', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/Scrapers', (statuscode, body) => {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     var scrapersByType = data.scrapersByType
@@ -1091,7 +1009,7 @@ var vueApp = new Vue({
         },
         refreshUserWeights() {
             vueApp.loadData('getWeights', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Weights', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/Weights', (statuscode, body) => {
                 vueApp.loadData('getWeights', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1103,7 +1021,7 @@ var vueApp = new Vue({
         },
         loadMatchDetails(matchId, matchDate) {
             vueApp.loadData('getMatchDetails', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/MatchDetails?matchId=' + matchId + '&matchDate=' + moment(matchDate).format('YYYYMMDD'), (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/User/MatchDetails?matchId=' + matchId + '&matchDate=' + moment(matchDate).format('YYYYMMDD'), (statuscode, body) => {
                 vueApp.loadData('getMatchDetails', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1115,7 +1033,7 @@ var vueApp = new Vue({
         },
         getSets() {
             this.loadData('getSets', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Sets', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Misc/Sets', (statuscode, body) => {
                 vueApp.loadData('getSets', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1127,7 +1045,7 @@ var vueApp = new Vue({
         },
         getNews() {
             this.loadData('getNews', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/News', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Misc/News', (statuscode, body) => {
                 vueApp.loadData('getNews', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1139,7 +1057,7 @@ var vueApp = new Vue({
         },
         getArticles() {
             this.loadData('getArticles', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Articles', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Misc/Articles', (statuscode, body) => {
                 vueApp.loadData('getArticles', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1194,7 +1112,7 @@ var vueApp = new Vue({
         },
         getLands() {
             this.loadData('getLands', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Lands', (statuscode, body) => {
+            ApiService.sendAjaxGet('/api/Misc/Lands', (statuscode, body) => {
                 vueApp.loadData('getLands', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1228,7 +1146,7 @@ var vueApp = new Vue({
             var body = {
                 lands: landsSelected
             };
-            sendAjaxPut('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Lands', body, null, (statuscode, body) => {
+            ApiService.sendAjaxPut('/api/User/Lands', body, null, (statuscode, body) => {
                 vueApp.loadData('setLands', false);
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
@@ -1463,7 +1381,7 @@ var vueApp = new Vue({
             this.$set(this.modelUserDecksFiltered.decks[idxFiltered], 'missingWeight', this.modelUserDecksFiltered.decks[idxFiltered].missingWeightBase * this.modelUserDecksFiltered.decks[idxFiltered].priorityFactor);
 
             this.loadData('dashboard', true);
-            sendAjaxPatch('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/DeckPriorityFactor', {
+            ApiService.sendAjaxPatch('/api/User/DeckPriorityFactor', {
                 DeckId: deckId,
                 Value: p
             }, null, (statuscode, body) => {
@@ -1478,7 +1396,7 @@ var vueApp = new Vue({
             this.$set(this.modelUserDecksFiltered.decks[idxFiltered], 'priorityFactor', 0);
 
             this.loadData('dashboard', true);
-            sendAjaxPatch('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/DeckPriorityFactor', {
+            ApiService.sendAjaxPatch('/api/User/DeckPriorityFactor', {
                 DeckId: deckId,
                 Value: 0
             }, null, (statuscode, body) => {
@@ -1499,9 +1417,9 @@ var vueApp = new Vue({
             }
         },
         resetDecksPriorityFactor(value) {
-            this.loadData(pageDecksTracked, true);
+            this.loadData(constants.pageDecksTracked, true);
             this.loadData('dashboard', true);
-            sendAjaxPatch('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/DeckPriorityFactor/ResetAll', {
+            ApiService.sendAjaxPatch('/api/User/DeckPriorityFactor/ResetAll', {
                 Value: value
             }, null, (statuscode, body) => {
                 vueApp.refreshDecksTracked();
@@ -1509,10 +1427,10 @@ var vueApp = new Vue({
             });
         },
         trackFilteredDecks(doTrack) {
-            this.loadData(pageDecksTracked, true);
+            this.loadData(constants.pageDecksTracked, true);
             this.loadData('dashboard', true);
             var decks = this.modelUserDecksFiltered.decks.map((d) => d.id);
-            sendAjaxPatch('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/DeckPriorityFactor/FilteredDecks', {
+            ApiService.sendAjaxPatch('/api/User/DeckPriorityFactor/FilteredDecks', {
                 DoTrack: doTrack,
                 Decks: decks
             }, null, (statuscode, body) => {
@@ -1556,7 +1474,7 @@ var vueApp = new Vue({
             //    return;
 
             //this.modelMtgaDeckSelected = mtgaDeck;
-            this.loadData(loadMtgaDeck, true);
+            this.loadData(constants.loadMtgaDeck, true);
 
             // Should be decoupled!
             this.modelDeckSelectedManaCurveCostSelected = -1;
@@ -1564,12 +1482,12 @@ var vueApp = new Vue({
 
             //this.loadPage(pageMtgaDeckSelected, false, mtgaDeckSummary.deckId);
 
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/MtgaDeckDetail?deckId=' + mtgaDeckSummary.deckId, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/User/MtgaDeckDetail?deckId=' + mtgaDeckSummary.deckId, function (statuscode, body) {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     window.scrollTo(0, 0);
                     vueApp.modelMtgaDeckSelected = data.detail;
-                    vueApp.loadData(loadMtgaDeck, false);
+                    vueApp.loadData(constants.loadMtgaDeck, false);
                 } else {
                     alert(data.error);
                 }
@@ -1580,19 +1498,19 @@ var vueApp = new Vue({
             //    return;
 
             this.modelDeckSelected = deck;
-            this.loadData(loadDeck, true);
+            this.loadData(constants.loadDeck, true);
 
             // Should be decoupled!
             this.modelDeckSelectedManaCurveCostSelected = -1;
             this.modelDeckSelectedCardsForManaCurve = [];
 
-            this.loadPage(pageDeckSelected, true, this.getDeckUrl(deck, false));
+            this.loadPage(constants.pageDeckSelected, true, this.getDeckUrl(deck, false));
 
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Decks/' + deck.id, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/Decks/' + deck.id, function (statuscode, body) {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     vueApp.modelDeckSelected = data.deck;
-                    vueApp.loadData(loadDeck, false);
+                    vueApp.loadData(constants.loadDeck, false);
                 } else {
                     alert(data.error);
                 }
@@ -1603,17 +1521,17 @@ var vueApp = new Vue({
             //    return;
 
             this.modelUserDeckSelected.id = deckId;
-            this.loadData(loadDeckTracked, true);
+            this.loadData(constants.loadDeckTracked, true);
 
             // Should be decoupled!
             this.modelDeckSelectedManaCurveCostSelected = -1;
             this.modelDeckSelectedCardsForManaCurve = [];
 
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Decks/' + deckId, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/Decks/' + deckId, function (statuscode, body) {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     vueApp.modelUserDeckSelected = data.deck;
-                    vueApp.loadData(loadDeckTracked, false);
+                    vueApp.loadData(constants.loadDeckTracked, false);
                 } else {
                     alert(data.error);
                 }
@@ -1622,13 +1540,13 @@ var vueApp = new Vue({
         getDeckByHash(hash) {
             this.loadData('deck', true);
 
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Decks/ByHash/' + hash, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/Decks/ByHash/' + hash, function (statuscode, body) {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     vueApp.modelDeckSelected = data.deck;
                 } else {
                     alert(data.error);
-                    vueApp.loadPage(pageDecks);
+                    vueApp.loadPage(constants.pageDecks);
                 }
 
                 vueApp.loadData('deck', false);
@@ -1676,7 +1594,7 @@ var vueApp = new Vue({
         getDecksForCard(card) {
             this.modelDetailsCardSelected.card = card;
             this.loadData('dashboardDetailsCardUsedIn', true);
-            sendAjaxGet('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Dashboard/DecksByCard?card=' + card, function (statuscode, body) {
+            ApiService.sendAjaxGet('/api/Dashboard/DecksByCard?card=' + card, function (statuscode, body) {
                 vueApp.loadData('dashboardDetailsCardUsedIn', false);
                 vueApp.$set(vueApp.modelDetailsCardSelected, 'decks', JSON.parse(body).infoByDeck);
             });
@@ -1687,7 +1605,7 @@ var vueApp = new Vue({
 
             this.filterDashboardDetails();
 
-            this.loadPage(pageDashboardDetails);
+            this.loadPage(constants.pageDashboardDetails);
         },
         goToDeck(deckId, deckName) {
             this.clearFiltersDecks();
@@ -1695,7 +1613,7 @@ var vueApp = new Vue({
             this.modelUserDecks.filters.showUntracked = true;
             this.filterDecks();
 
-            this.loadPage(pageDecksTracked);
+            this.loadPage(constants.pageDecksTracked);
             this.getDeckTracked(deckId);
         },
         getDeckFromUrl() {
@@ -1704,7 +1622,7 @@ var vueApp = new Vue({
                 url.startsWith('https://www.mtggoldfish.com/')) {
                 this.loadData('userDeckFromUrl', true);
 
-                sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Decks/FromUrl', {
+                ApiService.sendAjaxPost('/api/Decks/FromUrl', {
                     url: url
                 }, null, function (statuscode, body) {
                     var data = JSON.parse(body);
@@ -1729,7 +1647,7 @@ var vueApp = new Vue({
             };
 
             vueApp.loadData('postCustomDeck', true);
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/CustomDecks', body, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/CustomDecks', body, null, (statuscode, body) => {
                 var data = JSON.parse(body);
                 if (statuscode === 200) {
                     vueApp.modelUserDeck.name = '';
@@ -1746,7 +1664,7 @@ var vueApp = new Vue({
             });
         },
         deleteUserDeck(deckId) {
-            sendAjaxDelete('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/CustomDecks/' + deckId, null, null, (statuscode, body) => {
+            ApiService.sendAjaxDelete('/api/User/CustomDecks/' + deckId, null, null, (statuscode, body) => {
                 if (vueApp.modelUserDeckSelected.id === deckId) {
                     vueApp.clearSelectedDeck();
                 }
@@ -1775,7 +1693,7 @@ var vueApp = new Vue({
             };
             this.scraperIdLoading = body.id;
             this.loadData('userScraperAsync', true);
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Scrapers', body, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/Scrapers', body, null, (statuscode, body) => {
                 var data = JSON.parse(body);
                 this.loadData('userScraperAsync', false);
                 if (statuscode === 200) {
@@ -1817,7 +1735,7 @@ var vueApp = new Vue({
             }
 
             var scrapersActive = mergedActive.map(i => i.id);
-            sendAjaxPut('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Scrapers', {
+            ApiService.sendAjaxPut('/api/User/Scrapers', {
                 ScrapersActive: scrapersActive
             }, null, (statuscode, body) => {
                 if (statuscode === 200) {
@@ -1885,7 +1803,7 @@ var vueApp = new Vue({
             return type;
         },
         saveTheme() {
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Preference?key=ThemeIsDark&value=' + this.themeIsDark, null, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/Preference?key=ThemeIsDark&value=' + this.themeIsDark, null, null, (statuscode, body) => {
                 if (statuscode !== 200) {
                     var data = JSON.parse(body);
                     alert(data.error);
@@ -1893,7 +1811,7 @@ var vueApp = new Vue({
             });
         },
         saveCollectionSetsOrder() {
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Preference?key=CollectionSetsOrder&value=' + this.userCollectionSetsOrderBy, null, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/Preference?key=CollectionSetsOrder&value=' + this.userCollectionSetsOrderBy, null, null, (statuscode, body) => {
                 if (statuscode !== 200) {
                     var data = JSON.parse(body);
                     alert(data.error);
@@ -1901,7 +1819,7 @@ var vueApp = new Vue({
             });
         },
         saveLandsPickAll() {
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Preference?key=LandsPickAll&value=' + this.landsPickAll, null, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/Preference?key=LandsPickAll&value=' + this.landsPickAll, null, null, (statuscode, body) => {
                 if (statuscode !== 200) {
                     var data = JSON.parse(body);
                     alert(data.error);
@@ -1942,7 +1860,7 @@ var vueApp = new Vue({
             };
 
             vueApp.loadData('setWeights', true);
-            sendAjaxPut('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Weights', {
+            ApiService.sendAjaxPut('/api/User/Weights', {
                 weights: weightsToSend
             }, null, (statuscode, body) => {
                 vueApp.loadData('setWeights', false);
@@ -1957,7 +1875,7 @@ var vueApp = new Vue({
         },
         resetUserWeights() {
             vueApp.loadData('setWeights', true);
-            sendAjaxPut('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/Weights', {
+            ApiService.sendAjaxPut('/api/User/Weights', {
                 weights: null
             }, null, (statuscode, body) => {
                 vueApp.loadData('setWeights', false);
@@ -1992,7 +1910,7 @@ var vueApp = new Vue({
         },
         sendMessage() {
             vueApp.loadData('sendMessage', true);
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Misc/Message', {
+            ApiService.sendAjaxPost('/api/Misc/Message', {
                 Message: this.contactMessage
             }, null, (statuscode, body) => {
                 vueApp.loadData('sendMessage', false);
@@ -2008,7 +1926,7 @@ var vueApp = new Vue({
         stopNotification(notifId) {
             this.modelUser.notificationsInactive.push(notifId);
 
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/StopNotification?notificationId=' + notifId, null, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/StopNotification?notificationId=' + notifId, null, null, (statuscode, body) => {
                 if (statuscode !== 200) {
                     var data = JSON.parse(body);
                     alert(data.error);
@@ -2018,7 +1936,7 @@ var vueApp = new Vue({
         resetNotifications() {
             this.modelUser.notificationsInactive = [];
 
-            sendAjaxPost('https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/User/ResetNotifications', null, null, (statuscode, body) => {
+            ApiService.sendAjaxPost('/api/User/ResetNotifications', null, null, (statuscode, body) => {
                 if (statuscode !== 200) {
                     var data = JSON.parse(body);
                     alert(data.error);
@@ -2054,7 +1972,7 @@ var vueApp = new Vue({
         },
         viewMatchDetails(match) {
             this.modelUserHistoryMatchSelected = match;
-            this.loadPage(pageMatchDetails);
+            this.loadPage(constants.pageMatchDetails);
         },
         tooltipRank(rankDelta) {
             if (rankDelta.deltaSteps === 420) {
@@ -2130,19 +2048,19 @@ var vueApp = new Vue({
             }, {});
         },
         isPagePublic: function () {
-            return this.currentPage !== pageInventory &&
-                this.currentPage !== pageMasteryPass &&
-                this.currentPage !== pageDraftBeforeBoosters &&
-                this.currentPage !== pageBacklog &&
-                this.currentPage !== pageCollection &&
-                this.currentPage !== pageHistory &&
-                this.currentPage !== pageMtgaDecks &&
-                this.currentPage !== pageScrapers &&
-                this.currentPage !== pageDecksTracked &&
-                this.currentPage !== pageDashboardSummary &&
-                this.currentPage !== pageDashboardDetails &&
-                this.currentPage !== pageCustomDecks &&
-                this.currentPage !== pageProfile;
+            return this.currentPage !== constants.pageInventory &&
+                this.currentPage !== constants.pageMasteryPass &&
+                this.currentPage !== constants.pageDraftBeforeBoosters &&
+                this.currentPage !== constants.pageBacklog &&
+                this.currentPage !== constants.pageCollection &&
+                this.currentPage !== constants.pageHistory &&
+                this.currentPage !== constants.pageMtgaDecks &&
+                this.currentPage !== constants.pageScrapers &&
+                this.currentPage !== constants.pageDecksTracked &&
+                this.currentPage !== constants.pageDashboardSummary &&
+                this.currentPage !== constants.pageDashboardDetails &&
+                this.currentPage !== constants.pageCustomDecks &&
+                this.currentPage !== constants.pageProfile;
         },
         modelUserHistorySelectedEconomyEventsNewCards: function () {
             return this.modelUserHistorySelected2.economyEvents.map(i => i.newCards).flat(1).groupBy('rarity').sort((a, b) => this.wildcardsOrder[a.key[0]] > this.wildcardsOrder[b.key[0]] ? 1 : -1);
@@ -2154,3 +2072,5 @@ var vueApp = new Vue({
         }
     }
 });
+
+window.vueApp = vueApp;

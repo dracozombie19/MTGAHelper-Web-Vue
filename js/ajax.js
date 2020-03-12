@@ -1,47 +1,51 @@
-﻿function sendAjax(url, method, body, contentType, callback) {
-    var xmlhttp = new XMLHttpRequest();
+﻿import {
+    API_URL
+} from "./common/config.js";
 
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-            callback(xmlhttp.status, xmlhttp.responseText);
+export const ApiService = {
+
+    sendAjax: function (url, method, body, contentType, callback) {
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                callback(xmlhttp.status, xmlhttp.responseText);
+            }
+        };
+
+        xmlhttp.open(method, API_URL + url, true);
+
+        if (contentType === null) {
+            contentType = 'application/json';
         }
-    };
 
-    xmlhttp.open(method, url, true);
+        if (method === 'POST') {
+            if (contentType !== false) {
+                xmlhttp.setRequestHeader('Content-Type', contentType);
+            }
+        }
 
-    if (contentType === null) {
-        contentType = 'application/json';
-    }
-
-    if (method === 'POST') {
         if (contentType !== false) {
+            body = JSON.stringify(body);
             xmlhttp.setRequestHeader('Content-Type', contentType);
         }
+        xmlhttp.send(body);
+    },
+    sendAjaxGet: function (url, callback) {
+        this.sendAjax(url, 'GET', null, null, callback);
+    },
+    sendAjaxPost: function (url, body, contentType, callback) {
+        this.sendAjax(url, 'POST', body, contentType, callback);
+    },
+    sendAjaxPatch: function (url, body, contentType, callback) {
+        this.sendAjax(url, 'PATCH', body, contentType, callback);
+    },
+    sendAjaxPut: function (url, body, contentType, callback) {
+        this.sendAjax(url, 'PUT', body, contentType, callback);
+    },
+    sendAjaxDelete: function (url, body, contentType, callback) {
+        this.sendAjax(url, 'DELETE', body, contentType, callback);
     }
+};
 
-    if (contentType !== false) {
-        body = JSON.stringify(body);
-        xmlhttp.setRequestHeader('Content-Type', contentType);
-    }
-    xmlhttp.send(body);
-}
-
-function sendAjaxGet(url, callback) {
-    sendAjax(url, 'GET', null, null, callback);
-}
-
-function sendAjaxPost(url, body, contentType, callback) {
-    sendAjax(url, 'POST', body, contentType, callback);
-}
-
-function sendAjaxPatch(url, body, contentType, callback) {
-    sendAjax(url, 'PATCH', body, contentType, callback);
-}
-
-function sendAjaxPut(url, body, contentType, callback) {
-    sendAjax(url, 'PUT', body, contentType, callback);
-}
-
-function sendAjaxDelete(url, body, contentType, callback) {
-    sendAjax(url, 'DELETE', body, contentType, callback);
-}
+export default ApiService;

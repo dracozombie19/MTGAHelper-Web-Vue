@@ -13,9 +13,10 @@
     <meta property="og:image" content="https://www.mtgahelper.com/images/wcC.png" />
 
     <link rel="icon" type="image/png" href="/images/wcC.png" />
+    <script src="js/common/config.js" type="module"></script>
     <script src="js/common.js"></script>
     <script src="js/util.js"></script>
-    <script src="js/ajax.js"></script>
+    <script src="js/ajax.js" type="module"></script>
     <script src="js/submitCollection.js"></script>
     <link rel="stylesheet" href="css/bulma-pageloader.min.css" />
     <link rel="stylesheet" href="css/bulma-tooltip.min.css" />
@@ -326,39 +327,39 @@
         <div v-cloak class="content">
             <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" style="min-height:unset;">
                 <div class="navbar-brand" style="min-height:unset;">
-                    <!--v-on:click="loadPage(pageHome);"-->
+                    <!--v-on:click="loadPage(constants.pageHome);"-->
                     <img class="is-hidden-desktop-only" src="/images/wcC.png">
 
-                    <!--<a class="navbar-item" v-bind:class="currentSection === sectionGeneral ? 'bold' : ''" @click.prevent="currentSection = sectionGeneral">
+                    <!--<a class="navbar-item" v-bind:class="currentSection === constants.sectionGeneral ? 'bold' : ''" @click.prevent="currentSection = constants.sectionGeneral">
                         <i class="fas fa-bullhorn is-size-5" style="margin-right:0.2rem;"></i>
                         General
                     </a>-->
-                    <!--<template v-if="currentSection === sectionGeneral">-->
+                    <!--<template v-if="currentSection === constants.sectionGeneral">-->
                     <a href="/news" class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen"
-                        v-bind:class="currentPage === pageNews ? 'bold' : ''" @click.prevent="loadPage(pageNews);"
-                        data-tooltip="Latest MTGA information">
+                        v-bind:class="currentPage === constants.pageNews ? 'bold' : ''"
+                        @click.prevent="loadPage(constants.pageNews);" data-tooltip="Latest MTGA information">
                         News
                     </a>
                     <a href="/articles"
                         class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen"
-                        v-bind:class="currentPage === pageArticles ? 'bold' : ''"
-                        @click.prevent="loadPage(pageArticles);" data-tooltip="Useful reading material">
+                        v-bind:class="currentPage === constants.pageArticles ? 'bold' : ''"
+                        @click.prevent="loadPage(constants.pageArticles);" data-tooltip="Useful reading material">
                         Articles
                     </a>
-                    <!--<a class="navbar-item" v-bind:class="currentPage === pageStreams ? 'bold' : ''" @click.prevent="loadPage(pageStreams);">
+                    <!--<a class="navbar-item" v-bind:class="currentPage === constants.pageStreams ? 'bold' : ''" @click.prevent="loadPage(constants.pageStreams);">
                         Streams
                     </a>-->
                     <a href="/meta" class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen"
-                        v-bind:class="currentPage === pageMeta ? 'bold' : ''" @click.prevent="loadPage(pageMeta);"
-                        data-tooltip="Be competitive">
+                        v-bind:class="currentPage === constants.pageMeta ? 'bold' : ''"
+                        @click.prevent="loadPage(constants.pageMeta);" data-tooltip="Be competitive">
                         Meta
                     </a>
                     <a href="/decks" class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen"
-                        v-bind:class="currentPage === pageDecks ? 'bold' : ''" @click.prevent="loadPage(pageDecks);"
-                        data-tooltip="Browse all decks">
+                        v-bind:class="currentPage === constants.pageDecks ? 'bold' : ''"
+                        @click.prevent="loadPage(constants.pageDecks);" data-tooltip="Browse all decks">
                         Decks
                     </a>
-                    <!--<a href="/cards" class="navbar-item tooltip is-tooltip-right" v-bind:class="currentPage === pageAllCards ? 'bold' : ''" @click.prevent="loadPage(pageAllCards);" data-tooltip="All cards">
+                    <!--<a href="/cards" class="navbar-item tooltip is-tooltip-right" v-bind:class="currentPage === constants.pageAllCards ? 'bold' : ''" @click.prevent="loadPage(constants.pageAllCards);" data-tooltip="All cards">
                         Cards
                     </a>-->
                     <!--</template>-->
@@ -441,23 +442,23 @@
                             data-tooltip="Thank you so much for being a Patreon supporter">
                             <i class="fas fa-heart" style="color: rgb(191, 0, 0);"></i>
                         </div>
-                        <!--<template v-if="currentSection === sectionMyData">
-                            <a class="navbar-item" v-bind:class="currentPage === pageCollection ? 'bold' : ''" @click.prevent="loadPage(pageCollection);">
+                        <!--<template v-if="currentSection === constants.sectionMyData">
+                            <a class="navbar-item" v-bind:class="currentPage === constants.pageCollection ? 'bold' : ''" @click.prevent="loadPage(constants.pageCollection);">
                                 Collection
                             </a>
-                            <a class="navbar-item" v-bind:class="currentPage === pageHistory ? 'bold' : ''" @click.prevent="loadPage(pageHistory);">
+                            <a class="navbar-item" v-bind:class="currentPage === constants.pageHistory ? 'bold' : ''" @click.prevent="loadPage(constants.pageHistory);">
                                 History
                             </a>
-                            <a class="navbar-item" v-bind:class="currentPage === pageScrapers ? 'bold' : ''" @click.prevent="loadPage(pageScrapers);">
+                            <a class="navbar-item" v-bind:class="currentPage === constants.pageScrapers ? 'bold' : ''" @click.prevent="loadPage(constants.pageScrapers);">
                                 Sources of decks
                             </a>
-                            <a class="navbar-item" v-bind:class="currentPage === pageDecksTracked ? 'bold' : ''" @click.prevent="loadPage(pageDecksTracked);">
+                            <a class="navbar-item" v-bind:class="currentPage === constants.pageDecksTracked ? 'bold' : ''" @click.prevent="loadPage(constants.pageDecksTracked);">
                                 Decks tracked
                             </a>
-                            <a class="navbar-item is-size-7" v-bind:class="currentPage === pageDashboardSummary ? 'bold' : ''" @click.prevent="loadPage(pageDashboardSummary);">
+                            <a class="navbar-item is-size-7" v-bind:class="currentPage === constants.pageDashboardSummary ? 'bold' : ''" @click.prevent="loadPage(constants.pageDashboardSummary);">
                                 Missing cards Summary
                             </a>
-                            <a class="navbar-item is-size-7" v-bind:class="currentPage === pageDashboardDetails ? 'bold' : ''" @click.prevent="loadPage(pageDashboardDetails);">
+                            <a class="navbar-item is-size-7" v-bind:class="currentPage === constants.pageDashboardDetails ? 'bold' : ''" @click.prevent="loadPage(constants.pageDashboardDetails);">
                                 Missing cards Details
                             </a>
                         </template>-->
@@ -542,37 +543,38 @@
                         </div>
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
-                                <!--v-bind:class="currentSection === sectionMyData ? 'bold' : ''" v-on:click="currentSection = sectionMyData"-->
+                                <!--v-bind:class="currentSection === constants.sectionMyData ? 'bold' : ''" v-on:click="currentSection = constants.sectionMyData"-->
                                 <i class="fas fa-table is-size-5" style="margin-right:0.2rem;"></i>
                                 <span class="is-hidden-desktop-only is-hidden-widescreen-only">My Data</span>
                             </a>
                             <div class="navbar-dropdown">
                                 <a href="/my/inventory" class="navbar-item"
-                                    v-bind:class="currentPage === pageInventory ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageInventory);">
+                                    v-bind:class="currentPage === constants.pageInventory ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageInventory);">
                                     <img src="/images/inventory_gold.png" style="margin-right:0.5rem; width:1rem;" />
                                     Inventory
                                 </a>
                                 <a href="/my/collection" class="navbar-item"
-                                    v-bind:class="currentPage === pageCollection ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageCollection);">
+                                    v-bind:class="currentPage === constants.pageCollection ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageCollection);">
                                     <i class="fas fa-table" style="margin-right:0.5rem; width:1rem;"></i>
                                     Collection
                                 </a>
                                 <a href="/my/mtgadecks" class="navbar-item"
-                                    v-bind:class="currentPage === pageMtgaDecks ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageMtgaDecks);">
+                                    v-bind:class="currentPage === constants.pageMtgaDecks ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageMtgaDecks);">
                                     <i class="fas fa-clone" style="margin-right:0.5rem; width:1rem;"></i>
                                     MTGA Decks
                                 </a>
                                 <a href="/my/history" class="navbar-item"
-                                    v-bind:class="currentPage === pageHistory ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageHistory);">
+                                    v-bind:class="currentPage === constants.pageHistory ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageHistory);">
                                     <i class="far fa-calendar-alt" style="margin-right:0.5rem; width:1rem;"></i>
                                     History
                                 </a>
                                 <hr class="navbar-divider">
-                                <a href="/my/decks" class="navbar-item" @click.prevent="loadPage(pageCustomDecks);">
+                                <a href="/my/decks" class="navbar-item"
+                                    @click.prevent="loadPage(constants.pageCustomDecks);">
                                     <i class="far fa-file" style="margin-right:0.5rem; width:1rem;"></i>
                                     Custom decks
                                 </a>
@@ -585,28 +587,28 @@
                             </a>
                             <div class="navbar-dropdown">
                                 <a href="/my/sources" class="navbar-item"
-                                    v-bind:class="currentPage === pageScrapers ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageScrapers);">
+                                    v-bind:class="currentPage === constants.pageScrapers ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageScrapers);">
                                     <i class="fas fa-stream" style="margin-right:0.5rem; width:1rem;"></i>
                                     Deck sources
                                 </a>
                                 <hr class="navbar-divider">
                                 <a href="/my/trackedDecks" class="navbar-item"
-                                    v-bind:class="currentPage === pageDecksTracked ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageDecksTracked);">
+                                    v-bind:class="currentPage === constants.pageDecksTracked ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageDecksTracked);">
                                     <i class="fas fa-clone" style="margin-right:0.5rem; width:1rem;"></i>
                                     Decks to play
                                 </a>
                                 <a href="/my/missingCardsSummary" class="navbar-item"
-                                    v-bind:class="currentPage === pageDashboardSummary ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageDashboardSummary);">
+                                    v-bind:class="currentPage === constants.pageDashboardSummary ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageDashboardSummary);">
                                     <img v-bind:src="'/images/' + (modelDashboard.summary.length === 0 ? 'THB' : modelDashboard.summary[0].Key) + '-booster.png'"
                                         style="margin-right:0.5rem; width:1rem;" />
                                     Boosters to open
                                 </a>
                                 <a href="/my/missingCardsDetails" class="navbar-item"
-                                    v-bind:class="currentPage === pageDashboardDetails ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageDashboardDetails);">
+                                    v-bind:class="currentPage === constants.pageDashboardDetails ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageDashboardDetails);">
                                     <img src="/images/wcC.png" style="margin-right:0.5rem; width:1rem;" />
                                     Cards to craft
                                 </a>
@@ -614,20 +616,20 @@
                         </div>
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
-                                <!--v-bind:class="currentSection === sectionMyData ? 'bold' : ''" v-on:click="currentSection = sectionMyData"-->
+                                <!--v-bind:class="currentSection === constants.sectionMyData ? 'bold' : ''" v-on:click="currentSection = constants.sectionMyData"-->
                                 <i class="fas fa-calculator is-size-5" style="margin-right:0.2rem;"></i>
                                 <span class="is-hidden-desktop-only is-hidden-widescreen-only">Tools</span>
                             </a>
                             <div class="navbar-dropdown">
                                 <a href="/my/masteryPass" class="navbar-item"
-                                    v-bind:class="currentPage === pageMasteryPass ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageMasteryPass);">
+                                    v-bind:class="currentPage === constants.pageMasteryPass ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageMasteryPass);">
                                     <img src="/images/mastery.png" style="margin-right:0.5rem; width:2rem;" />
                                     Mastery pass
                                 </a>
                                 <a href="/my/draftsBeforeBoosters" class="navbar-item"
-                                    v-bind:class="currentPage === pageDraftBeforeBoosters ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageDraftBeforeBoosters);">
+                                    v-bind:class="currentPage === constants.pageDraftBeforeBoosters ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageDraftBeforeBoosters);">
                                     <i class="fas fa-traffic-light" style="font-size:1.1rem; margin-right:0.6rem;"></i>
                                     Drafts vs boosters
                                 </a>
@@ -639,14 +641,14 @@
                             </a>
                             <div class="navbar-dropdown">
                                 <a v-if="modelAccount.isAuthenticated" href="/profile" class="navbar-item"
-                                    v-bind:class="currentPage === pageProfile ? 'bold' : ''"
-                                    @click.prevent="loadPage(pageProfile);">
+                                    v-bind:class="currentPage === constants.pageProfile ? 'bold' : ''"
+                                    @click.prevent="loadPage(constants.pageProfile);">
                                     <i class="fas fa-user-cog" style="margin-right:0.5rem; width:1rem;"></i>
                                     Profile
                                 </a>
                                 <a href="/lands" class="navbar-item"
-                                    v-bind:class="currentPage === pageLands ? 'bold' : ''"
-                                    @click.prevent="if (modelLands.length === 0) { getLands(); } loadPage(pageLands);">
+                                    v-bind:class="currentPage === constants.pageLands ? 'bold' : ''"
+                                    @click.prevent="if (modelLands.length === 0) { getLands(); } loadPage(constants.pageLands);">
                                     <img src="https://img.scryfall.com/cards/border_crop/front/0/2/023d333b-14f2-40ad-bb76-8b9e38040f89.jpg?1562730596"
                                         style="margin-right:0.5rem; width:1rem;" />
                                     Lands
@@ -656,7 +658,7 @@
                         <div v-if="modelAccount.isAuthenticated" class="navbar-item">
                             <div class="buttons">
                                 <form
-                                    action="https://cors-anywhere.herokuapp.com/https://mtgahelper.comhttps://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signout"
+                                    action="https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signout"
                                     method="post">
                                     <button class="button" type="submit">Sign-out</button>
                                 </form>
@@ -700,12 +702,12 @@
                     </div>
                     <div class="hero is-primary hero2bg" style="margin-bottom:1rem;">
                         <div class="hero-body" style="text-shadow: 1px 1px 20px #000000;">
-                            <template v-if="currentPage === pageMasteryPass">
+                            <template v-if="currentPage === constants.pageMasteryPass">
                                 <h4 class="title is-4 is-marginless">
                                     Using the MTGAHelper tracker, determine your final mastery level automatically
                                 </h4>
                             </template>
-                            <template v-else-if="currentPage === pageDraftBeforeBoosters">
+                            <template v-else-if="currentPage === constants.pageDraftBeforeBoosters">
                                 <h4 class="title is-4 is-marginless">
                                     Using the MTGAHelper tracker, know exactly how many drafts to complete before
                                     opening your boosters
@@ -717,18 +719,19 @@
                                 </h4>
                                 <h4 class="subtitle is-4">
                                     Grow your collection more efficiently by having a perfect picture of
-                                    <a onclick="vueApp.loadPage(pageDashboardSummary);" style="color:aquamarine;">
+                                    <a onclick="vueApp.loadPage(constants.pageDashboardSummary);"
+                                        style="color:aquamarine;">
                                         which packs to open
                                     </a>
                                     and
-                                    <a onclick="vueApp.loadPage(pageDashboardDetails);"
+                                    <a onclick="vueApp.loadPage(constants.pageDashboardDetails);"
                                         style="color:aquamarine; display: inline-block;">
                                         which cards to craft
                                     </a>.
                                 </h4>
                                 <h5 class="subtitle is-5" style="margin-bottom:0;">
                                     Upload your collection and
-                                    <a onclick="vueApp.loadPage(pageScrapers);" style="color:aquamarine;">
+                                    <a onclick="vueApp.loadPage(constants.pageScrapers);" style="color:aquamarine;">
                                         start tracking your favorite decks
                                     </a>
                                     !
@@ -737,7 +740,7 @@
                         </div>
                     </div>
                 </template>
-                <div v-if="currentPage === pageHome">
+                <div v-if="currentPage === constants.pageHome">
                     <h4 class="title is-4">
                         Welcome to MTGAHelper &mdash; The most complete resource hub for Magic: The Gathering Arena!
                     </h4>
@@ -771,7 +774,7 @@
                         </ul>
                     </p>
                 </div>
-                <div v-else-if="currentPage === pageNews">
+                <div v-else-if="currentPage === constants.pageNews">
                     <h4 class="title is-4">
                         Always stay updated on Magic: The Gathering Arena
                     </h4>
@@ -811,13 +814,13 @@
                         </div>
                     </div>
                 </div>
-                <!--<div v-else-if="currentPage === pageStreams">
+                <!--<div v-else-if="currentPage ===constants.pageStreams">
                     <h4 class="title is-4">
                         Streams
                     </h4>
                     Coming up
                 </div>-->
-                <div v-else-if="currentPage === pageArticles">
+                <div v-else-if="currentPage ===constants.pageArticles">
                     <h4 class="title is-4">
                         Some useful readings for players of Magic: The Gathering Arena
                     </h4>
@@ -954,7 +957,7 @@
                                 <article>
                                     <div>
                                         <a v-bind:href="'/articles/' + article.id"
-                                            @click.prevent="modelArticleSelected = article; loadPage(pageArticleSelected, true, article.id);">
+                                            @click.prevent="modelArticleSelected = article; loadPage(constants.pageArticleSelected, true, article.id);">
                                             <img v-bind:src="article.imageUrl">
                                         </a>
                                     </div>
@@ -962,13 +965,13 @@
                                         <div class="content">
                                             <h6 class="title is-6">
                                                 <a v-bind:href="'/articles/' + article.id"
-                                                    @click.prevent="modelArticleSelected = article; loadPage(pageArticleSelected, true, article.id);">
+                                                    @click.prevent="modelArticleSelected = article; loadPage(constants.pageArticleSelected, true, article.id);">
                                                     {{article.title}}
                                                 </a>
                                             </h6>
                                             <p>
                                                 <a v-bind:href="'/articles/' + article.id"
-                                                    @click.prevent="modelArticleSelected = article; loadPage(pageArticleSelected, true, article.id);">
+                                                    @click.prevent="modelArticleSelected = article; loadPage(constants.pageArticleSelected, true, article.id);">
                                                     {{article.description}}
                                                 </a>
                                             </p>
@@ -981,7 +984,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageArticleSelected">
+                <div v-else-if="currentPage ===constants.pageArticleSelected">
                     <div class="columns">
                         <div class="column is-one-quarter">
                             <img v-bind:src="modelArticleSelected.imageUrl">
@@ -995,13 +998,13 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageMeta">
+                <div v-else-if="currentPage ===constants.pageMeta">
                     <h4 class="title is-4">
                         Meta
                     </h4>
                     Coming up
                 </div>
-                <div v-else-if="currentPage === pageDecks">
+                <div v-else-if="currentPage ===constants.pageDecks">
                     <h4 class="title is-4">
                         {{modelDecks.totalDecks}} decks
                     </h4>
@@ -1009,7 +1012,7 @@
                         <button class="delete" v-on:click="stopNotification('tipDecksTrackedLink')"></button>
                         <span class="icon has-text-info"><i class="fas fa-info-circle"></i></span>
                         If you want to see which decks you can build with your current collection, go to the
-                        <a v-on:click="loadPage(pageDecksTracked)">Tracked decks</a> page
+                        <a v-on:click="loadPage(constants.pageDecksTracked)">Tracked decks</a> page
                     </div>
                     <table class="table is-narrow" style="width:unset;">
                         <thead>
@@ -1089,7 +1092,7 @@
                         Showing {{paginatedDecks.length}} of {{modelDecksFiltered.decks.length}} decks filtered
 
                         <button v-if="decksAreFiltered(false)" v-on:click="clearFiltersDecks(false);"
-                            :disabled="isLoadingData(pageDecks)" class="button is-danger is-small tooltip"
+                            :disabled="isLoadingData(constants.pageDecks)" class="button is-danger is-small tooltip"
                             data-tooltip="Reset the filters">
                             Clear filters
                         </button>
@@ -1099,14 +1102,14 @@
                                 <li v-for="pageNumber in getDecksPages(false)" style="list-style-type: none;">
                                     <span v-if="pageNumber === '...'" class="pagination-ellipsis">&hellip;</span>
                                     <a v-else class="pagination-link"
-                                        v-bind:class="[ modelDecksFiltered.currentPage === pageNumber ? 'is-current' : '']"
+                                        v-bind:class="[ modelDecksFiltered.currentPage ===constants.pageNumber ? 'is-current' : '']"
                                         v-on:click="modelDecksFiltered.currentPage = pageNumber"
                                         v-bind:aria-label="'Go to page ' + pageNumber">{{ pageNumber + 1 }}</a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-                    <span v-if="isLoadingData(pageDecks)" class="button is-loading"></span>
+                    <span v-if="isLoadingData(constants.pageDecks)" class="button is-loading"></span>
                     <div v-else-if="getScrapersFlattened().length === 0">
                         <span class="button is-loading"></span>
                         <span class="is-size-5">
@@ -1156,11 +1159,12 @@
                         </ul>
                     </nav>
                 </div>
-                <div v-else-if="currentPage === pageDeckSelected">
+                <div v-else-if="currentPage === constants.pageDeckSelected">
                     <div style="margin-bottom:1rem;">
-                        <button class="button is-small" v-on:click="currentPage = pageDecks">Back to List</button>
+                        <button class="button is-small" v-on:click="currentPage =constants.pageDecks">Back to
+                            List</button>
                     </div>
-                    <span v-if="isLoadingData(loadDeck)" class="button is-loading"></span>
+                    <span v-if="isLoadingData(constants.loadDeck)" class="button is-loading"></span>
                     <div v-else>
                         <h4 class="title is-4">
                             <a v-bind:href="modelDeckSelected.url" target="_blank">
@@ -1307,7 +1311,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageInventory">
+                <div v-else-if="currentPage === constants.pageInventory">
                     <h4 class="title is-4">
                         Inventory
                     </h4>
@@ -1368,7 +1372,7 @@
 
 
                 </div>
-                <div v-else-if="currentPage === pageCollection">
+                <div v-else-if="currentPage === constants.pageCollection">
                     <span v-if="isLoadingData('collectionGet')" class="button is-loading"></span>
                     <div v-else>
                         <nav class="level">
@@ -1610,7 +1614,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="currentPage === pageMtgaDecks">
+                <div v-if="currentPage === constants.pageMtgaDecks">
                     <div class="columns">
                         <div class="column is-half-desktop"
                             v-bind:class="[modelMtgaDeckSelected.deckId === '' ? '' : 'is-hidden-touch', ]">
@@ -1619,7 +1623,7 @@
                                 <i class="fas fa-info-circle"></i>
                                 Disclaimer: Unless you are a supporter, your data will be reset at the release of a new set
                             </p>-->
-                            <div v-if="isLoadingData(pageMtgaDecks)">
+                            <div v-if="isLoadingData(constants.pageMtgaDecks)">
                                 <span class="button is-loading"></span>
                                 This can take some time to load with a lot of matches...
                             </div>
@@ -1641,7 +1645,7 @@
                                 <label class="label is-small">
                                     Source
                                     <span class="icon has-text-info tooltip" style="height:inherit; cursor:pointer;"
-                                          data-tooltip="Go configure sources of decks" v-on:click="loadPage(pageScrapers)">
+                                          data-tooltip="Go configure sources of decks" v-on:click="loadPage(constants.pageScrapers)">
                                         <i class="fas fa-info-circle"></i>
                                     </span>
                                 </label>
@@ -1701,7 +1705,7 @@
                             </div>
                         </div>
                         <div class="column" v-bind:class="modelMtgaDeckSelected.deckId === '' ? 'is-hidden-touch' : ''">
-                            <span v-if="isLoadingData(loadMtgaDeck)" class="button is-loading"></span>
+                            <span v-if="isLoadingData(constants.loadMtgaDeck)" class="button is-loading"></span>
                             <div v-else-if="modelMtgaDeckSelected.deckId !== ''">
                                 <div class="is-hidden-desktop" style="margin-bottom:1rem;">
                                     <button class="button is-small" v-on:click="modelMtgaDeckSelected.deckId = ''">Back
@@ -1769,21 +1773,23 @@
                                 </div>
                                 <div class="columns">
                                     <div class="column">
-                                        <button v-on:click="currentPageMtgaDeckDetail = pageMtgaDeckDetailCards"
+                                        <button
+                                            v-on:click="currentPageMtgaDeckDetail = constants.pageMtgaDeckDetailCards"
                                             class="button is-fullwidth is-rounded"
-                                            v-bind:class="[currentPageMtgaDeckDetail === pageMtgaDeckDetailCards ? 'is-info' : '']">
+                                            v-bind:class="[currentPageMtgaDeckDetail === constants.pageMtgaDeckDetailCards ? 'is-info' : '']">
                                             Cards
                                         </button>
                                     </div>
                                     <div class="column">
-                                        <button v-on:click="currentPageMtgaDeckDetail = pageMtgaDeckDetailMatches"
+                                        <button
+                                            v-on:click="currentPageMtgaDeckDetail = constants.pageMtgaDeckDetailMatches"
                                             class="button is-fullwidth is-rounded"
-                                            v-bind:class="[currentPageMtgaDeckDetail === pageMtgaDeckDetailMatches ? 'is-info' : '']">
+                                            v-bind:class="[currentPageMtgaDeckDetail === constants.pageMtgaDeckDetailMatches ? 'is-info' : '']">
                                             Matches
                                         </button>
                                     </div>
                                 </div>
-                                <div v-if="currentPageMtgaDeckDetail === pageMtgaDeckDetailCards">
+                                <div v-if="currentPageMtgaDeckDetail === constants.pageMtgaDeckDetailCards">
                                     <h4 class="title is-4">
                                         Cards in the deck
                                     </h4>
@@ -1921,7 +1927,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="currentPageMtgaDeckDetail === pageMtgaDeckDetailMatches">
+                                <div v-else-if="currentPageMtgaDeckDetail === constants.pageMtgaDeckDetailMatches">
                                     <h4 class="title is-4">
                                         Matches played
                                     </h4>
@@ -1985,7 +1991,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageHistory">
+                <div v-else-if="currentPage === constants.pageHistory">
                     <h4 class="title is-4">History</h4>
                     <span v-if="isLoadingData('userHistory')" class="button is-loading"></span>
                     <strong v-else-if="modelUserHistory.history2.length === 0">No activity</strong>
@@ -1997,7 +2003,7 @@
                                     <span v-if="pageNumber === '...'" class="pagination-ellipsis">&hellip;</span>
                                     <a v-else class="pagination-link"
                                         v-bind:class="[ modelUserHistory.currentPage === pageNumber ? 'is-current' : '']"
-                                        v-on:click="loadUserHistoryPage(pageNumber)"
+                                        v-on:click="loadUserHistoryPage(constants.pageNumber)"
                                         v-bind:aria-label="'Go to page ' + pageNumber">{{ pageNumber + 1 }}</a>
                                 </li>
                             </ul>
@@ -2150,9 +2156,10 @@
                         </table>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageHistorySelected">
+                <div v-else-if="currentPage === constants.pageHistorySelected">
                     <div style="margin-bottom:1rem;">
-                        <button class="button is-small" v-on:click="loadPage(pageHistory)">Back to List</button>
+                        <button class="button is-small" v-on:click="loadPage(constants.pageHistory)">Back to
+                            List</button>
                     </div>
                     <h4 class="title is-4" style="margin-top:0;">
                         History for {{moment(modelUserHistorySelected2.date).format('YYYY-MM-DD')}}
@@ -2165,27 +2172,27 @@
                         <template v-else>
                             <div class="columns">
                                 <div class="column">
-                                    <button v-on:click="currentPageHistory = pageHistoryEconomyEvents"
+                                    <button v-on:click="currentPageHistory = constants.pageHistoryEconomyEvents"
                                         class="button is-fullwidth is-rounded"
-                                        v-bind:class="[currentPageHistory === pageHistoryEconomyEvents ? 'is-info' : '']">
+                                        v-bind:class="[currentPageHistory === constants.pageHistoryEconomyEvents ? 'is-info' : '']">
                                         Inventory Changes
                                     </button>
                                 </div>
                                 <div class="column">
-                                    <button v-on:click="currentPageHistory = pageHistoryMatches"
+                                    <button v-on:click="currentPageHistory = constants.pageHistoryMatches"
                                         class="button is-fullwidth is-rounded"
-                                        v-bind:class="[currentPageHistory === pageHistoryMatches ? 'is-info' : '']">
+                                        v-bind:class="[currentPageHistory === constants.pageHistoryMatches ? 'is-info' : '']">
                                         Matches
                                     </button>
                                 </div>
                                 <!--<div class="column">
-                                    <button v-on:click="currentPageHistory = pageHistoryRankUpdates"
-                                            class="button is-fullwidth is-rounded" v-bind:class="[currentPageHistory === pageHistoryRankUpdates ? 'is-info' : '']">
+                                    <button v-on:click="currentPageHistory = constants.pageHistoryRankUpdates"
+                                            class="button is-fullwidth is-rounded" v-bind:class="[currentPageHistory === constants.pageHistoryRankUpdates ? 'is-info' : '']">
                                         Rank updates
                                     </button>
                                 </div>-->
                             </div>
-                            <!--<div v-if="currentPageHistory === pageHistoryRankUpdates">
+                            <!--<div v-if="currentPageHistory === constants.pageHistoryRankUpdates">
                                 <h5 class="title is-5" v-if="modelUserHistorySelected2.rankUpdates.length === 0">
                                     No rank updates
                                 </h5>
@@ -2212,7 +2219,7 @@
                                     </tbody>
                                 </table>
                             </div>-->
-                            <div v-if="currentPageHistory === pageHistoryEconomyEvents">
+                            <div v-if="currentPageHistory === constants.pageHistoryEconomyEvents">
                                 <h5 class="title is-5" v-if="modelUserHistorySelected2.economyEvents.length === 0">
                                     No inventory changes
                                 </h5>
@@ -2396,7 +2403,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-else-if="currentPageHistory === pageHistoryMatches">
+                            <div v-else-if="currentPageHistory === constants.pageHistoryMatches">
                                 <h5 class="title is-5" v-if="modelUserHistorySelected2.matches.length === 0">
                                     No matches played
                                 </h5>
@@ -2492,7 +2499,7 @@
                         </template>
                     </template>
                 </div>
-                <div v-else-if="currentPage === pageMatchDetails">
+                <div v-else-if="currentPage === constants.pageMatchDetails">
                     <!--<div v-if="typeof modelUserHistoryMatchSelected.startDateTime === 'undefined'">
                         Select a match to view its game details
                     </div>
@@ -2612,7 +2619,7 @@
 
                     <!--</div>-->
                 </div>
-                <div v-else-if="currentPage === pageDecksTracked">
+                <div v-else-if="currentPage === constants.pageDecksTracked">
                     <h4 class="title is-4">
                         Browse your tracked decks in relation to your collection
                     </h4>
@@ -2631,14 +2638,14 @@
                                     {{modelUserDecks.decks.filter((i) => i.priorityFactor > 0).length}} decks tracked /
                                     {{modelUserDecks.totalDecks}} total
                                     <button class="button is-small is-warning" v-on:click="resetDecksPriorityFactor(1)"
-                                        v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                        :disabled="isLoadingData(pageDecksTracked)">Track all</button>
+                                        v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                        :disabled="isLoadingData(constants.pageDecksTracked)">Track all</button>
                                     <button class="button is-small is-warning" v-on:click="resetDecksPriorityFactor(0)"
-                                        v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                        :disabled="isLoadingData(pageDecksTracked)">Untrack all</button>
+                                        v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                        :disabled="isLoadingData(constants.pageDecksTracked)">Untrack all</button>
                                     <button class="button is-small is-info"
-                                        v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                        :disabled="isLoadingData(pageDecksTracked)"
+                                        v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                        :disabled="isLoadingData(constants.pageDecksTracked)"
                                         v-on:click="function() { refreshDecksTracked();refreshDashboard(); }">
                                         Refresh
                                     </button>
@@ -2671,7 +2678,7 @@
                                                         <span class="icon has-text-info tooltip"
                                                             style="height:inherit; cursor:pointer;"
                                                             data-tooltip="Go configure sources of decks"
-                                                            v-on:click="loadPage(pageScrapers)">
+                                                            v-on:click="loadPage(constants.pageScrapers)">
                                                             <i class="fas fa-info-circle"></i>
                                                         </span>
                                                     </label>
@@ -2765,25 +2772,25 @@
 
                                 <button class="button is-small is-warning tooltip" v-on:click="trackFilteredDecks(true)"
                                     data-tooltip="Add the filtered decks to your list of tracked decks"
-                                    v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                    :disabled="isLoadingData(pageDecksTracked)">
+                                    v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                    :disabled="isLoadingData(constants.pageDecksTracked)">
                                     Track these {{modelUserDecksFiltered.decks.length}} decks
                                 </button>
                                 <button class="button is-small is-warning tooltip" v-on:click="trackFilteredDecks(null)"
                                     data-tooltip="Make the filtered decks your list of tracked decks"
-                                    v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                    :disabled="isLoadingData(pageDecksTracked)">
+                                    v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                    :disabled="isLoadingData(constants.pageDecksTracked)">
                                     Track *ONLY* these {{modelUserDecksFiltered.decks.length}} decks
                                 </button>
                                 <button class="button is-small is-warning tooltip"
                                     v-on:click="trackFilteredDecks(false)"
                                     data-tooltip="Remove the filtered decks from your list of tracked decks"
-                                    v-bind:class="getClassIsLoadingData(pageDecksTracked)"
-                                    :disabled="isLoadingData(pageDecksTracked)">
+                                    v-bind:class="getClassIsLoadingData(constants.pageDecksTracked)"
+                                    :disabled="isLoadingData(constants.pageDecksTracked)">
                                     Untrack these {{modelUserDecksFiltered.decks.length}} decks
                                 </button>
                                 <button v-if="decksAreFiltered()" v-on:click="clearFiltersDecks(true);"
-                                    :disabled="isLoadingData(pageDecksTracked)"
+                                    :disabled="isLoadingData(constants.pageDecksTracked)"
                                     class="button is-danger is-small tooltip"
                                     data-tooltip="Reset the filters to show your tracked decks">
                                     Clear filters
@@ -2801,7 +2808,7 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <span v-if="isLoadingData(pageDecksTracked)" class="button is-loading"></span>
+                            <span v-if="isLoadingData(constants.pageDecksTracked)" class="button is-loading"></span>
                             <!--<div v-else-if="getScrapersFlattened().length === 0">
                                 <span class="button is-loading"></span>
                                 <span class="is-size-5">
@@ -2987,7 +2994,7 @@
                             <span v-if="modelUserDeckSelected.id === ''">
                                 Select a deck to see its details
                             </span>
-                            <span v-else-if="isLoadingData(loadDeckTracked)" class="button is-loading"></span>
+                            <span v-else-if="isLoadingData(constants.loadDeckTracked)" class="button is-loading"></span>
                             <div v-else>
                                 <div class="is-hidden-desktop" style="margin-bottom:1rem;">
                                     <button class="button is-small" v-on:click="modelUserDeckSelected.id = ''">Back to
@@ -3244,7 +3251,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageDashboardSummary">
+                <div v-else-if="currentPage === constants.pageDashboardSummary">
                     <template v-if="modelDashboard.summary.length > 0">
                         <h4 class="title is-4">
                             Consider opening
@@ -3352,7 +3359,7 @@
                         Standard until Fall 2021.
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageDashboardDetails">
+                <div v-else-if="currentPage === constants.pageDashboardDetails">
                     <h4 v-if="modelDashboard.summary.length === 0" class="title is-4">
                         You must track decks first
                     </h4>
@@ -3518,7 +3525,7 @@
                         </div>
                     </template>
                 </div>
-                <div v-else-if="currentPage === pageScrapers">
+                <div v-else-if="currentPage === constants.pageScrapers">
                     <h4 class="title is-4">Manage which live sources you want to follow &mdash; These decks are
                         refreshed automatically</h4>
                     <div v-if="getScrapersFlattened().length === 0">
@@ -3626,7 +3633,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageCustomDecks" class="columns">
+                <div v-else-if="currentPage === constants.pageCustomDecks" class="columns">
                     <div class="column">
                         <h4 class="title is-4">Add a new custom deck</h4>
                         <div class="field">
@@ -3681,7 +3688,7 @@
                         </template>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageDraftBeforeBoosters">
+                <div v-else-if="currentPage === constants.pageDraftBeforeBoosters">
                     <img src="/images/draftsBeforeBoostersHeader.png"
                         style="position:absolute; right:0; opacity:0.26;" />
                     <div class="has-text-centered" style="margin-bottom:1rem;">
@@ -3711,7 +3718,7 @@
                                                         </option>
                                                     </select>
                                                 </span>
-                                                <span v-if="isLoadingData(pageDraftBeforeBoosters)"
+                                                <span v-if="isLoadingData(constants.pageDraftBeforeBoosters)"
                                                     class="button is-loading"></span>
                                             </div>
                                         </div>
@@ -4005,7 +4012,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageMasteryPass" class="has-text-centered">
+                <div v-else-if="currentPage === constants.pageMasteryPass" class="has-text-centered">
                     <div class="container" style="margin-bottom:0;">
                         <div class="level">
                             <div class="level-item has-text-right" style="display:block;">
@@ -4160,7 +4167,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageProfile">
+                <div v-else-if="currentPage === constants.pageProfile">
                     <h4 class="title is-4">
                         My profile
                     </h4>
@@ -4321,7 +4328,7 @@
                         Please sign-in to view your profile.
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageLands">
+                <div v-else-if="currentPage === constants.pageLands">
                     <h4 class="title is-4">
                         Basic lands preference when importing a deck
                     </h4>
@@ -4369,7 +4376,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageAllCards">
+                <div v-else-if="currentPage === constants.pageAllCards">
                     <h4 class="title is-4">
                         All cards
                     </h4>
@@ -4385,7 +4392,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageContact">
+                <div v-else-if="currentPage === constants.pageContact">
                     <h4 class="title is-4">
                         <i class="fas fa-envelope"></i>
                         Leave a message, feedback is appreciated
@@ -4417,7 +4424,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageChangelog">
+                <div v-else-if="currentPage === constants.pageChangelog">
                     <h4 class="title is-4">
                         <i class="fas fa-history"></i>
                         Changelog
@@ -4434,7 +4441,7 @@
                         </li>
                     </ul>
                 </div>
-                <div v-else-if="currentPage === pageAbout">
+                <div v-else-if="currentPage === constants.pageAbout">
                     <h4 class="title is-4">
                         About MTGAHelper
                     </h4>
@@ -4473,7 +4480,7 @@
                         </p>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pagePrivacy">
+                <div v-else-if="currentPage === constants.pagePrivacy">
                     <h4 class="title is-4">
                         Privacy Notice
                     </h4>
@@ -4513,7 +4520,8 @@
                             Your Access to and Control Over Information
                         </h5>
                         <p>
-                            You can do the following at any time by <a v-on:click="loadPage(pageContact)">contacting
+                            You can do the following at any time by <a
+                                v-on:click="loadPage(constants.pageContact)">contacting
                                 us</a>:
                             <ul>
                                 <li>See what data we have about you, if any;</li>
@@ -4572,11 +4580,11 @@
                         </p>
                         <p>
                             If you feel that we are not abiding by this privacy policy, you should <a
-                                v-on:click="loadPage(pageContact)">contact us</a> immediately.
+                                v-on:click="loadPage(constants.pageContact)">contact us</a> immediately.
                         </p>
                     </div>
                 </div>
-                <div v-else-if="currentPage === pageTerms">
+                <div v-else-if="currentPage === constants.pageTerms">
                     <h4 class="title is-4">Terms of Service ("Terms")</h4>
                     <h6 class="subtitle is-6">
                         Last updated on October 17, 2019
@@ -4584,7 +4592,7 @@
 
                     <div class="box">
                         <p>Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the
-                            https://cors-anywhere.herokuapp.com/https://mtgahelper.com website (the "Service") operated
+                            https://mtgahelper.com website (the "Service") operated
                             by MTGAHelper ("I", "me", "my",
                             "us", "we", or "our").</p>
 
@@ -4593,7 +4601,7 @@
                         </h5>
 
                         <p>Before you continue using our website we advise you to read our <a
-                                v-on:click="loadPage(pagePrivacy)">privacy policy</a> regarding our user data
+                                v-on:click="loadPage(constants.pagePrivacy)">privacy policy</a> regarding our user data
                             collection. It will help you better understand our practices.</p>
 
                         <h5 class="title is-5">
@@ -4710,7 +4718,7 @@
                         </h5>
 
                         <p>If you have any questions about these Terms, please <a
-                                v-on:click="loadPage(pageContact)">contact us</a>.</p>
+                                v-on:click="loadPage(constants.pageContact)">contact us</a>.</p>
                     </div>
                 </div>
                 <!--<div>
@@ -4730,7 +4738,7 @@
                     </script>
                     <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
                 </div>-->
-                <div v-show="currentPage === pageBacklog">
+                <div v-show="currentPage === constants.pageBacklog">
                     <h4 class="title is-4">
                         Help determine what's next
                     </h4>
@@ -4746,10 +4754,10 @@
 
                 <div class="notification is-size-7" style="margin-top:1rem; padding:0.5rem 2.5rem 0.5rem 1.5rem;">
                     <p class="footerLinks">
-                        <a v-on:click="loadPage(pagePrivacy)">Privacy policy</a>
-                        <a v-on:click="loadPage(pageTerms)">Terms of use</a>
-                        <a v-on:click="loadPage(pageContact)">Contact us</a>
-                        <a v-on:click="loadPage(pageAbout)">About</a>
+                        <a v-on:click="loadPage(constants.pagePrivacy)">Privacy policy</a>
+                        <a v-on:click="loadPage(constants.pageTerms)">Terms of use</a>
+                        <a v-on:click="loadPage(constants.pageContact)">Contact us</a>
+                        <a v-on:click="loadPage(constants.pageAbout)">About</a>
                         <a href="https://github.com/ibiza240/MTGAHelper-Windows-Client/raw/master/MTGAHelperTracker.msi"
                             target="_blank">Install the tracker</a>
                     </p>
@@ -4770,16 +4778,16 @@
                     </a>
                 </span>
                 <span class="float tooltip is-tooltip-left" data-tooltip="Contact form" style="right:153px;"
-                    v-on:click="loadPage(pageContact)">
+                    v-on:click="loadPage(constants.pageContact)">
                     <i class="fas fa-envelope my-float"></i>
                 </span>
                 <span id="iconChangelog" class="float tooltip is-tooltip-left" data-tooltip="Changelog"
-                    style="right:103px;" v-on:click="loadPage(pageChangelog)">
+                    style="right:103px;" v-on:click="loadPage(constants.pageChangelog)">
                     <i class="fas fa-history my-float"></i>
                 </span>
                 <span id="iconBacklog" class="float tooltip is-tooltip-left"
                     data-tooltip="Vote for the next features in December" style="right:53px;"
-                    v-on:click="loadPage(pageBacklog)">
+                    v-on:click="loadPage(constants.pageBacklog)">
                     <i class="fas fa-laptop-code my-float"></i>
                 </span>
                 <span class="float tooltip is-tooltip-left" data-tooltip="Support the project"
@@ -5036,8 +5044,8 @@
                                 </div>
                                 <div>
                                     <button class="button is-info" v-on:click="doSignup()"
-                                        v-bind:class="getClassIsLoadingData(loadSignup)"
-                                        :disabled="isLoadingData(loadSignup)">Sign-up</button>
+                                        v-bind:class="getClassIsLoadingData(constants.loadSignup)"
+                                        :disabled="isLoadingData(constants.loadSignup)">Sign-up</button>
                                 </div>
                             </div>
                         </div>
@@ -5049,8 +5057,8 @@
                                 {{modelAccount.message}}
                                 <button v-if="modelAccount.status === 'WaitingForVerificationCode'"
                                     v-on:click="resendVerificationCode()" class="button is-small is-info"
-                                    v-bind:class="getClassIsLoadingData(loadResendCode)"
-                                    :disabled="isLoadingData(loadResendCode)">
+                                    v-bind:class="getClassIsLoadingData(constants.loadResendCode)"
+                                    :disabled="isLoadingData(constants.loadResendCode)">
                                     Resend code
                                 </button>
                             </div>
@@ -5264,7 +5272,7 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="js/vueApp.js"></script>
+    <script src="js/vueApp.js" type="module"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137512649-1"></script>
     <script>
