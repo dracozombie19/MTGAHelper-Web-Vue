@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 
-import { register } from 'register-service-worker';
+import {
+  register,
+} from 'register-service-worker';
 
+// https://forum.vuejs.org/t/checking-development-or-production-mode-in-browser/8650/6
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {

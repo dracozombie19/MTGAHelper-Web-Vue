@@ -1,0 +1,14 @@
+{
+    "requireModuleSupport.modulePath": "src\\js",
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSaveTimeout": 5000, //needs to be higher to allow all ESLint fixes to be computed and executed
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "eslint.debug": true
+}
