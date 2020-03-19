@@ -3,60 +3,29 @@
     "eslint.enable": true,
     "eslint.alwaysShowStatus": true,
     "eslint.format.enable": true,
-    // "editor.codeActionsOnSaveTimeout": 5000, //needs to be higher to allow all ESLint fixes to be computed and executed
-    // "editor.codeActionsOnSave": {
-    //     "source.fixAll.eslint": true
-    // },
-    "[vue]": {
-        "editor.defaultFormatter": "octref.vetur" //octref.vetur //dbaeumer.vscode-eslint
+    "editor.codeActionsOnSaveTimeout": 5000, //needs to be higher to allow all ESLint fixes to be computed and executed
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     },
+    "[vue]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint" //octref.vetur //dbaeumer.vscode-eslint
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "vetur.validation.template": false,
+    "vetur.completion.useScaffoldSnippets": false,
     "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "vue"
+        "vue",
+        "html",
+        "javascript"
     ],
     "prettier.disableLanguages": [
         "vue"
     ],
-    "vetur.format.options.tabSize": 4,
-    "vetur.format.scriptInitialIndent": true,
-    // "vetur.validation.template": false,
-    // "vetur.format.options.useTabs": true,
-    "vetur.validation.template": true,
-    "vetur.format.options.useTabs": false,
-    "vetur.format.defaultFormatter.less": "prettier",
-    "vetur.format.defaultFormatter.postcss": "prettier",
-    "vetur.format.defaultFormatter.scss": "prettier",
-    "vetur.format.defaultFormatter.js": "prettier-eslint",
-    "vetur.format.defaultFormatter.css": "prettier",
-    "vetur.format.defaultFormatter.html": "js-beautify-html",
-    "vetur.format.defaultFormatterOptions": {
-        "js-beautify-html": {
-            "indent_size": "4",
-            "indent_char": " ",
-            "max_preserve_newlines": "-1",
-            "preserve_newlines": false,
-            "keep_array_indentation": true,
-            "indent_scripts": "normal",
-            "brace_style": "collapse,preserve-inline",
-            "space_before_conditional": true,
-            "wrap_line_length": "0",
-            "html": {
-                "wrap_attributes": "preserve-aligned"
-            }
-        }
-    },
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveTimeout": 10000,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "javascript.format.enable": false,
-    "prettier.tabWidth": 4,
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "scss.showErrors": true,
-    "stylelint.enable": true,
+    "git.ignoreLimitWarning": true,
 }
