@@ -29,6 +29,22 @@ const routes = [
     path: '/Contact',
     name: 'Contact',
       component: () => import( /* webpackChunkName: "Contact" */ '../views/Contact.vue'),
+  }, {
+    path: '/Articles',
+    name: 'Articles',
+      component: () => import( /* webpackChunkName: "Articles" */ '../views/Articles.vue'),
+  }, {
+    path: '/News',
+    name: 'News',
+      component: () => import( /* webpackChunkName: "News" */ '../views/News.vue'),
+  }, {
+    path: '/Decks',
+    name: 'Decks',
+      component: () => import( /* webpackChunkName: "Decks" */ '../views/Decks.vue'),
+  }, {
+    path: '/Meta',
+    name: 'Meta',
+      component: () => import( /* webpackChunkName: "Meta" */ '../views/Meta.vue'),
   },
 ];
 
