@@ -31,6 +31,14 @@ export const AuthenService = {
     },
     signUp(email, password) {
         return email && password;
+    },
+    googleSignIn() {
+        console.log('googleSignIn');
+        ApiService.goToURL(`/External/Challenge?provider=Google&returnUrl=%2F`, true);
+    },
+    facebookSignIn() {
+        console.log('facebookSignIn');
+        ApiService.goToURL(`/External/Challenge?provider=Facebook&returnUrl=%2F`, true);
     }
 };
 

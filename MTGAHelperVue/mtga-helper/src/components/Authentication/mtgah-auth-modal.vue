@@ -6,12 +6,12 @@
                 <div class="column">
                     <h3 class="title is-3">{{$t('signIn')}}</h3>
                     <div class="button">
-                        <a href="/External/Challenge?provider=Google&returnUrl=%2F">
+                        <a @click="googleSignIn">
                             <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
                                  style="height:1rem; margin-right:0.5rem;" alt="Google" /> {{$t('withGoogle')}} </a>
                     </div>
                     <div class="button" style="margin-top:1rem;">
-                        <a href="/External/Challenge?provider=Facebook&returnUrl=%2F">
+                        <a @click="facebookSignIn">
                             <img src="https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
                                  style="height:1rem; margin-right:0.5rem;" alt="Facebook" /> {{$t('withFacebook')}} </a>
                     </div>
@@ -46,23 +46,12 @@
 <script>
 import { HIDE_SIGNIN_MODAL } from '@/store/mutations';
 import { mapMutations } from 'vuex';
+import AuthenService from '@/common/AuthenService';
 import SignInForm from './mtgah-sign-in.vue';
 
 export default {
     components: {
         SignInForm
-    },
-    data() {
-        return {
-            signin: {
-                email: '',
-                password: ''
-            },
-            signup: {
-                email: '',
-                password: ''
-            }
-        };
     },
     computed: {
         isVisible() {
@@ -73,11 +62,11 @@ export default {
         ...mapMutations({
             hideModal: HIDE_SIGNIN_MODAL // map `this.hideModal()` to `this.$store.commit(HIDE_SIGNIN_MODAL)`
         }),
-        localPasswordSignin_KeyUp(e) {
-            if (e.keyCode === 13) {
-                console.warn(e.keyCode);
-                this.signIn();
-            }
+        googleSignIn() {
+            AuthenService.googleSignIn();
+        },
+        facebookSignIn() {
+            AuthenService.facebookSignIn();
         }
     }
 };

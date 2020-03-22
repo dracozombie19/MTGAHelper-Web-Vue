@@ -91,49 +91,35 @@
                         </span>
                     </template>
                     <template v-if="navBarInfo === 'wildcards'">
-                        <span class="tooltip is-tooltip-left" data-tooltip="Common wildcards">
-                            {{modelUser.collection.inventory.wildcards.Common}}
-                            <img class="wc" src="/images/wcC.png" />
-                        </span>
-                        <span
-                            class="tooltip is-tooltip-left"
-                            data-tooltip="Uncommon wildcards"
-                            style="margin-left:0.5rem;">
-                            {{modelUser.collection.inventory.wildcards.Uncommon}}
-                            <img class="wc" src="/images/wcU.png" />
-                        </span>
-                        <span class="tooltip is-tooltip-left" data-tooltip="Rare wildcards" style="margin-left:0.5rem;">
-                            {{modelUser.collection.inventory.wildcards.Rare}}
-                            <img class="wc" src="/images/wcR.png" />
-                        </span>
-                        <span
-                            class="tooltip is-tooltip-left"
-                            data-tooltip="Mythic wildcards"
-                            style="margin-left:0.5rem;">
-                            {{modelUser.collection.inventory.wildcards.Mythic}}
-                            <img class="wc" src="/images/wcM.png" />
-                        </span>
-                    </template>
+    <span class="tooltip is-tooltip-left" data-tooltip="Common wildcards"> {{modelUser.collection.inventory.wildcards.Common}} <img class="wc" src="/images/wcC.png" />
+    </span>
+    <span
+          class="tooltip is-tooltip-left"
+          data-tooltip="Uncommon wildcards"
+          style="margin-left:0.5rem;"> {{modelUser.collection.inventory.wildcards.Uncommon}} <img class="wc" src="/images/wcU.png" />
+    </span>
+    <span class="tooltip is-tooltip-left" data-tooltip="Rare wildcards" style="margin-left:0.5rem;"> {{modelUser.collection.inventory.wildcards.Rare}} <img class="wc" src="/images/wcR.png" />
+    </span>
+    <span
+          class="tooltip is-tooltip-left"
+          data-tooltip="Mythic wildcards"
+          style="margin-left:0.5rem;"> {{modelUser.collection.inventory.wildcards.Mythic}} <img class="wc" src="/images/wcM.png" />
+    </span>
+</template>
                                                     <template v-if="navBarInfo === 'currency'">
-                        <span class="tooltip is-tooltip-left" data-tooltip="Gold">
-                            {{numeral(modelUser.collection.inventory.gold).format('0,0')}}
-                            <img
-                                class="wc"
-                                src="/images/inventory_gold.png"/>
-                        </span>
-                        <span class="tooltip is-tooltip-left" data-tooltip="Gems" style="margin-left:0.8rem;">
-                            {{numeral(modelUser.collection.inventory.gems).format('0,0')}}
-                            <img
-                                class="wc"
-                                src="/images/inventory_gem.png"/>
-                        </span>
-                        <span class="tooltip is-tooltip-left" data-tooltip="Vault progress" style="margin-left:0.8rem;">
-                            {{numeral(modelUser.collection.inventory.vaultProgress).format('0.0')}} %
-                            <img
-                                class="wc"
-                                src="/images/vault.png"/>
-                        </span>
-                    </template> --
+    <span class="tooltip is-tooltip-left" data-tooltip="Gold"> {{numeral(modelUser.collection.inventory.gold).format('0,0')}} <img
+             class="wc"
+             src="/images/inventory_gold.png" />
+    </span>
+    <span class="tooltip is-tooltip-left" data-tooltip="Gems" style="margin-left:0.8rem;"> {{numeral(modelUser.collection.inventory.gems).format('0,0')}} <img
+             class="wc"
+             src="/images/inventory_gem.png" />
+    </span>
+    <span class="tooltip is-tooltip-left" data-tooltip="Vault progress" style="margin-left:0.8rem;"> {{numeral(modelUser.collection.inventory.vaultProgress).format('0.0')}} % <img
+             class="wc"
+             src="/images/vault.png" />
+    </span>
+</template> --
                     <span class="tooltip is-tooltip-right"
                         :data-tooltip="'Display ' + navBarInfos[(navBarInfos.indexOf(navBarInfo) + 1) % navBarInfos.length]">
                         <i class="fas fa-ellipsis-h"
@@ -257,9 +243,10 @@
             </div> -->
             <div v-if="isAuthenticated" class="navbar-item">
                 <div class="buttons">
-                    <form action="https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signout" method="post">
+                    <button class="button" @click="signOut">Sign-out</button>
+                    <!-- <form action="https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signout" method="post">
                         <button class="button" type="submit">Sign-out</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div v-else class="navbar-item is-hidden-touch">
@@ -277,45 +264,42 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import {SHOW_SIGNIN_MODAL} from '@/store/mutations';
-    import AuthenService from '@/common/AuthenService';
-    import AuthModal from './Authentication/mtgah-auth-modal.vue';
+import { mapState } from 'vuex';
+import { SHOW_SIGNIN_MODAL, RESET_USER_DATA } from '@/store/mutations';
+// import AuthenService from '@/common/AuthenService';
+import AuthModal from './Authentication/mtgah-auth-modal.vue';
 
-    export default  {
-        name: 'MtgahHeader',
-        components: {
-            AuthModal,
+export default {
+    name: 'MtgahHeader',
+    components: {
+        AuthModal
+    },
+    data() {
+        return {
+            navbarBurgerActive: false
+        };
+    },
+    computed: mapState({
+        isAuthenticated: (state) => state.user.isAuthenticated
+    }),
+    mounted() {},
+    methods: {
+        toggleNavbarBurger() {
+            this.navbarBurgerActive = !this.navbarBurgerActive;
         },
-        data () {
-            return {
-                navbarBurgerActive: false
-            }
+        showModalLogin() {
+            console.warn('showModalLogin');
+            this.$store.commit(SHOW_SIGNIN_MODAL);
         },
-        computed: mapState({
-            isAuthenticated: (state) => state.user.isAuthenticated
-        }),
-        mounted () {
-
-        },
-        methods: {
-            toggleNavbarBurger() {
-                this.navbarBurgerActive = !this.navbarBurgerActive
-            },
-            showModalLogin () {
-                // TODO: show modal or raise event
-                console.warn('showModalLogin');
-                this.$store.commit(SHOW_SIGNIN_MODAL);
-            },
-            signOut() {
-                AuthenService.signOut().then(function signOutHandler() {
-                    console.warn('signOutHandler');
-                });
-            }
+        signOut() {
+            // TODO: perform actual logout
+            this.$store.commit(RESET_USER_DATA);
+            // AuthenService.signOut().then(function signOutHandler() {
+            //     console.warn('signOutHandler');
+            // });
         }
-}
-
-
+    }
+};
 </script>
 
 <style scoped lang="css">

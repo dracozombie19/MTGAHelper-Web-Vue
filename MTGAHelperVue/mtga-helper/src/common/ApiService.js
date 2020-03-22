@@ -56,6 +56,9 @@ export const ApiService = {
   },
   sendAjaxDelete (url, body, contentType, callback) {
       this.sendAjax(url, 'DELETE', body, contentType, callback);
+  },
+  goToURL(url, prependApiUrl) {
+    window.location.href = (prependApiUrl ? API_URL : '') + url;
   }
 };
 

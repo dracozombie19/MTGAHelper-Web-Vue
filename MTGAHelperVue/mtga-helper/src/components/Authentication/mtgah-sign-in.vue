@@ -74,27 +74,18 @@ export default {
         buttonClick() {
             console.log('buttonClick', this.isSignUp);
             const self = this;
-            // (statuscode, body) => {
-            //         console.warn(statuscode, body);
-            //         resolve(body);
-            //         // vueApp.modelAccount = JSON.parse(body);
-            //         // vueApp.showModalLogin = vueApp.modelAccount.isAuthenticated === false;
-            //         // if (vueApp.modelAccount.isAuthenticated) {
-            //         //     vueApp.refreshAll(true);
-            //         // }
-            //     }
 
             if (this.isSignUp) {
                 AuthenService.signUp(this.email, this.password);
             } else {
                 AuthenService.signIn(this.email, this.password).then(function signInSuccess(response) {
                     console.log(response);
-                    console.log(response.data && response.data.isAuthenticated);
                     if (response.status === 'success') {
                         self.setUserData(response.data);
                     } else {
-                        // TODO: handle error
-                        console.warn(response.data);
+                        this.$toasted.show(`${response.data}`, {
+                            type: 'error'
+                        });
                     }
                 });
             }
