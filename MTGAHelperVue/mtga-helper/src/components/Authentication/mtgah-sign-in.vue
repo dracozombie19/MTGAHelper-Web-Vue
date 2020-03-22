@@ -2,7 +2,7 @@
     <form action="javascript:void(0);">
         <div class="field">
             <div class="control">
-                <label class="label is-small">Email</label>
+                <label class="label is-small">{{$t('email')}}</label>
                 <input id="txtSigninEmail"
                        v-model="email"
                        name="txtSigninInEmail"
@@ -15,7 +15,7 @@
         </div>
         <div class="field">
             <div class="control">
-                <label class="label is-small">Password</label>
+                <label class="label is-small">{{$t('password')}}</label>
                 <input v-model="password"
                        class="input is-small"
                        type="password"
@@ -27,14 +27,13 @@
         <div class="level">
             <div class="level-left">
                 <div class="level-item">
-                    <button class="button is-info"
-                            @click="buttonClick">{{buttonLabel}}</button>
+                    <button class="button is-info" @click="buttonClick">{{$t(buttonLabel)}}</button>
                 </div>
                 <div v-if="!isSignUp"
                      class="level-item tooltip is-tooltip-bottom"
                      data-tooltip="Initiate a password reset request"
                      style="margin-left:1rem;">
-                    <a @click="resetPassword">Forgot password?</a>
+                    <a @click="resetPassword">{{$t('forgotPassword')}}</a>
                 </div>
             </div>
         </div>
@@ -62,7 +61,7 @@ export default {
     },
     computed: {
         buttonLabel() {
-            return this.isSignUp ? 'Sign-Up' : 'Sign-In';
+            return this.isSignUp ? 'signUp' : 'signIn';
         }
     },
     methods: {

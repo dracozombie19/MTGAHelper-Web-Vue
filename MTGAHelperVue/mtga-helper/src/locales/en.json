@@ -1,0 +1,11 @@
+{
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign-In",
+    "signUp": "Sign-Up",
+    "forgotPassword": "Forgot Password",
+    "withGoogle": "With Google",
+    "withFacebook": "With Facebook",
+    "orLocalAccount": "Or with a local account",
+    "withLocalAccount": "with a local account"
+}

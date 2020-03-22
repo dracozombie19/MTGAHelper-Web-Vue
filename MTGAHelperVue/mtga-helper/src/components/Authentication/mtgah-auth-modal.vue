@@ -4,24 +4,24 @@
         <div class="modal-content box">
             <div class="columns">
                 <div class="column">
-                    <h3 class="title is-3">Sign-in</h3>
+                    <h3 class="title is-3">{{$t('signIn')}}</h3>
                     <div class="button">
                         <a href="/External/Challenge?provider=Google&returnUrl=%2F">
                             <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
-                                 style="height:1rem; margin-right:0.5rem;" alt="Google" /> With Google </a>
+                                 style="height:1rem; margin-right:0.5rem;" alt="Google" /> {{$t('withGoogle')}} </a>
                     </div>
                     <div class="button" style="margin-top:1rem;">
                         <a href="/External/Challenge?provider=Facebook&returnUrl=%2F">
                             <img src="https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"
-                                 style="height:1rem; margin-right:0.5rem;" alt="Facebook" /> With Facebook </a>
+                                 style="height:1rem; margin-right:0.5rem;" alt="Facebook" /> {{$t('withFacebook')}} </a>
                     </div>
                     <hr />
-                    <h4 class="title is-4">Or with a local account</h4>
+                    <h4 class="title is-4">{{$t('orLocalAccount')}}</h4>
                     <SignInForm />
                 </div>
                 <div class="column" style="border-left:dashed 1px #888;">
-                    <h3 class="title is-3">Sign-up</h3>
-                    <h4 class="subtitle is-4">with a local account</h4>
+                    <h3 class="title is-3">{{$t('signUp')}}</h3>
+                    <h4 class="subtitle is-4">{{$t('withLocalAccount')}}</h4>
                     <SignInForm is-sign-up />
                 </div>
             </div>
