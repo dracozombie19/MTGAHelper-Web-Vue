@@ -1,0 +1,116 @@
+<template>
+    <form action="javascript:void(0);">
+        <div class="field">
+            <div class="control">
+                <label class="label is-small">Email</label>
+                <input id="txtSigninEmail"
+                       v-model="email"
+                       name="txtSigninInEmail"
+                       class="input is-small"
+                       type="email"
+                       size="16"
+                       autocomplete="username"
+                       @keyup="keyUp" />
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label is-small">Password</label>
+                <input v-model="password"
+                       class="input is-small"
+                       type="password"
+                       size="16"
+                       autocomplete="current-password"
+                       @keyup="keyUp" />
+            </div>
+        </div>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <button class="button is-info"
+                            @click="buttonClick">{{buttonLabel}}</button>
+                </div>
+                <div v-if="!isSignUp"
+                     class="level-item tooltip is-tooltip-bottom"
+                     data-tooltip="Initiate a password reset request"
+                     style="margin-left:1rem;">
+                    <a @click="resetPassword">Forgot password?</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</template>
+
+<script>
+import { HIDE_SIGNIN_MODAL } from '@/store/mutations';
+import { USER_SIGNIN_SUCCESS } from '@/store/actions';
+import { mapMutations, mapActions } from 'vuex';
+import AuthenService from '@/common/AuthenService';
+
+export default {
+    props: {
+        isSignUp: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            email: '',
+            password: ''
+        };
+    },
+    computed: {
+        buttonLabel() {
+            return this.isSignUp ? 'Sign-Up' : 'Sign-In';
+        }
+    },
+    methods: {
+        ...mapMutations({
+            hideModal: HIDE_SIGNIN_MODAL // map `this.hideModal()` to `this.$store.commit(HIDE_SIGNIN_MODAL)`
+        }),
+        ...mapActions({
+            setUserData: USER_SIGNIN_SUCCESS // map `this.setUserData(userData)` to `this.$store.dispatch(USER_SIGNIN_SUCCESS, userData)`
+        }),
+        buttonClick() {
+            console.log('buttonClick', this.isSignUp);
+            const self = this;
+            // (statuscode, body) => {
+            //         console.warn(statuscode, body);
+            //         resolve(body);
+            //         // vueApp.modelAccount = JSON.parse(body);
+            //         // vueApp.showModalLogin = vueApp.modelAccount.isAuthenticated === false;
+            //         // if (vueApp.modelAccount.isAuthenticated) {
+            //         //     vueApp.refreshAll(true);
+            //         // }
+            //     }
+
+            if (this.isSignUp) {
+                AuthenService.signUp(this.email, this.password);
+            } else {
+                AuthenService.signIn(this.email, this.password).then(function signInSuccess(response) {
+                    console.log(response);
+                    console.log(response.data && response.data.isAuthenticated);
+                    if (response.status === 'success') {
+                        self.setUserData(response.data);
+                    } else {
+                        // TODO: handle error
+                        console.warn(response.data);
+                    }
+                });
+            }
+        },
+        resetPassword() {
+            console.warn('resetPassword');
+        },
+        keyUp(e) {
+            if (e.keyCode === 13) {
+                this.signIn();
+            }
+        }
+    }
+};
+</script>
+
+<style scoped>
+</style>

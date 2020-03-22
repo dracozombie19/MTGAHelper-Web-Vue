@@ -1,23 +1,29 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <div id="nav">
+            <MTGAHHeader />
+        </div>
+        <router-view />
+        <MTGAHFooter />
     </div>
-    <router-view />
-    <MTGAHFooter />
-  </div>
 </template>
 
 <script>
-    import MTGAHFooter from '@/components/mtgah-footer.vue';
+import MTGAHFooter from '@/components/mtgah-footer.vue';
+import MTGAHHeader from '@/components/mtgah-header.vue';
+import store from '@/store/index';
 
-    export default {
-        name: 'App',
-        components: {
-            MTGAHFooter
-        }
-    };
+export default {
+    name: 'App',
+    store,
+    components: {
+        MTGAHFooter,
+        MTGAHHeader
+    },
+    data() {
+        return {};
+    }
+};
 </script>
 
 <style>
@@ -32,49 +38,4 @@
 #nav {
     padding: 30px;
 }
-
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
-}
-
-/* .container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px
-}
-@media(min-width: 544px) {
-    .container {
-        max-width: 576px
-    }
-}
-@media(min-width: 768px) {
-    .container {
-        max-width: 720px
-    }
-}
-@media(min-width: 992px) {
-    .container {
-        max-width: 940px
-    }
-}
-@media(min-width: 1200px) {
-    .container {
-        max-width: 1140px
-    }
-}
-.container-fluid {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px
-}
-.container.page {
-    margin-top: 1.5rem
-} */
 </style>

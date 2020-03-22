@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import Vue from 'vue';
 import { API_URL } from "@/common/config";
 
 export const ApiService = {
@@ -9,7 +10,7 @@ export const ApiService = {
 
       xmlhttp.onreadystatechange = function onreadystatechange() {
           if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-              callback(xmlhttp.status, xmlhttp.responseText);
+              callback(xmlhttp.status, xmlhttp.response);
           }
       };
 
@@ -31,8 +32,18 @@ export const ApiService = {
       }
       xmlhttp.send(body);
   },
-  sendAjaxGet (url, callback) {
-      this.sendAjax(url, 'GET', null, null, callback);
+  axiosResponseHandler(response) {
+    console.log(response);
+    return {status: 'success', data: response.data};
+  },
+  axiosErrorHandler(error) {
+      return {status: 'error', data: error};
+  },
+  sendAjaxGet (url) {
+      console.log('GET', url);
+      return Vue.axios.get(API_URL + url)
+        .then(this.axiosResponseHandler)
+        .catch(this.axiosErrorHandler);
   },
   sendAjaxPost (url, body, contentType, callback) {
       this.sendAjax(url, 'POST', body, contentType, callback);
