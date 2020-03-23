@@ -15,19 +15,7 @@ export const AuthenService = {
     },
     signOut() {
         console.log('signOut');
-        return (new Promise(function signOutPromise(resolve, reject) {
-            ApiService.sendAjaxPost(
-                '/api/Account/Signout',
-                null,
-                null,
-                (statuscode, body) => {
-                    if (statuscode === 200) {
-                        resolve();
-                    } else {
-                        reject(new Error(`${statuscode} - ${body}`));
-                    }
-                });
-            }));
+        return ApiService.sendAjaxPost('/api/Account/Signout');
     },
     signUp(email, password) {
         return email && password;

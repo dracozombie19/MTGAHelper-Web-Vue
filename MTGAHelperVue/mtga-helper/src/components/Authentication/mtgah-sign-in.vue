@@ -83,7 +83,7 @@ export default {
                     if (response.status === 'success') {
                         self.setUserData(response.data);
                     } else {
-                        this.$toasted.show(`${response.data}`, {
+                        self.$toasted.show(`${response.data.message}`, {
                             type: 'error'
                         });
                     }

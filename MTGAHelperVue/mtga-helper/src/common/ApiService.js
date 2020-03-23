@@ -33,20 +33,20 @@ export const ApiService = {
       xmlhttp.send(body);
   },
   axiosResponseHandler(response) {
-    console.log(response);
     return {status: 'success', data: response.data};
   },
   axiosErrorHandler(error) {
       return {status: 'error', data: error};
   },
   sendAjaxGet (url) {
-      console.log('GET', url);
       return Vue.axios.get(API_URL + url)
         .then(this.axiosResponseHandler)
         .catch(this.axiosErrorHandler);
   },
-  sendAjaxPost (url, body, contentType, callback) {
-      this.sendAjax(url, 'POST', body, contentType, callback);
+  sendAjaxPost (url, body) {
+      return Vue.axios.post(API_URL + url, body)
+        .then(this.axiosResponseHandler)
+        .catch(this.axiosErrorHandler);
   },
   sendAjaxPatch (url, body, contentType, callback) {
       this.sendAjax(url, 'PATCH', body, contentType, callback);

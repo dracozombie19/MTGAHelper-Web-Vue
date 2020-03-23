@@ -244,9 +244,6 @@
             <div v-if="isAuthenticated" class="navbar-item">
                 <div class="buttons">
                     <button class="button" @click="signOut">Sign-out</button>
-                    <!-- <form action="https://cors-anywhere.herokuapp.com/https://mtgahelper.com/api/Account/Signout" method="post">
-                        <button class="button" type="submit">Sign-out</button>
-                    </form> -->
                 </div>
             </div>
             <div v-else class="navbar-item is-hidden-touch">
@@ -258,6 +255,65 @@
             </div>
         </div>
     </div>
+    <!-- <template
+        v-if="modelUser.collection.cards.length === 0 && isLoadingData('collectionGet') === false && isPagePublic === false">
+        <div class="hero herobg1 is-info">
+            <div class="hero-body">
+                <h2 class="title is-2" style="text-shadow: 4px 4px 10px #000000;">
+                    MTGAHelper &mdash; The ultimate collection tracker for Magic: The Gathering Arena
+                </h2>
+                <div style="margin-left:4rem;">
+                    <a class="button"
+                        href="https://github.com/ibiza240/MTGAHelper-Windows-Client/raw/master/MTGAHelperTracker.msi">Start
+                        by installing the Tracker</a>
+                    <br />
+                    <span style="text-shadow: 4px 4px 10px #000000;">
+                        or upload your file manually by using the <strong>Import</strong> button in the
+                        navigation bar at the top
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="hero is-primary hero2bg" style="margin-bottom:1rem;">
+            <div class="hero-body" style="text-shadow: 1px 1px 20px #000000;">
+                <template v-if="currentPage === constants.pageMasteryPass">
+                    <h4 class="title is-4 is-marginless">
+                        Using the MTGAHelper tracker, determine your final mastery level automatically
+                    </h4>
+                </template>
+                <template v-else-if="currentPage === constants.pageDraftBeforeBoosters">
+                    <h4 class="title is-4 is-marginless">
+                        Using the MTGAHelper tracker, know exactly how many drafts to complete before
+                        opening your boosters
+                    </h4>
+                </template>
+                <template v-else>
+                    <h4 class="title is-4">
+                        Optimize your deckbuilding experience &mdash; Never waste another wildcard.
+                    </h4>
+                    <h4 class="subtitle is-4">
+                        Grow your collection more efficiently by having a perfect picture of
+                        <a onclick="vueApp.loadPage(constants.pageDashboardSummary);"
+                            style="color:aquamarine;">
+                            which packs to open
+                        </a>
+                        and
+                        <a onclick="vueApp.loadPage(constants.pageDashboardDetails);"
+                            style="color:aquamarine; display: inline-block;">
+                            which cards to craft
+                        </a>.
+                    </h4>
+                    <h5 class="subtitle is-5" style="margin-bottom:0;">
+                        Upload your collection and
+                        <a onclick="vueApp.loadPage(constants.pageScrapers);" style="color:aquamarine;">
+                            start tracking your favorite decks
+                        </a>
+                        !
+                    </h5>
+                </template>
+            </div>
+        </div>
+    </template> -->
     <AuthModal/>
 </nav>
 
@@ -266,7 +322,7 @@
 <script>
 import { mapState } from 'vuex';
 import { SHOW_SIGNIN_MODAL, RESET_USER_DATA } from '@/store/mutations';
-// import AuthenService from '@/common/AuthenService';
+import AuthenService from '@/common/AuthenService';
 import AuthModal from './Authentication/mtgah-auth-modal.vue';
 
 export default {
@@ -292,11 +348,11 @@ export default {
             this.$store.commit(SHOW_SIGNIN_MODAL);
         },
         signOut() {
-            // TODO: perform actual logout
-            this.$store.commit(RESET_USER_DATA);
-            // AuthenService.signOut().then(function signOutHandler() {
-            //     console.warn('signOutHandler');
-            // });
+            const self = this;
+            AuthenService.signOut().then(function signOutHandler() {
+                console.warn('signOutHandler');
+                self.$store.commit(RESET_USER_DATA);
+            });
         }
     }
 };

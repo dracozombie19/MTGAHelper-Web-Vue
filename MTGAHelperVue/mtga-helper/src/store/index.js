@@ -18,8 +18,8 @@ const emptyUser = {
 
 export default new Vuex.Store({
     state: {
-        user: emptyUser,
-        isSignInModalRendered: true
+        user: util.getObjectFromCache('userData') || emptyUser,
+        isSignInModalRendered: false
     },
     mutations: {
         [SHOW_SIGNIN_MODAL](state) {
@@ -39,6 +39,7 @@ export default new Vuex.Store({
             console.log(RESET_USER_DATA);
             util.setObjectInCache('userData', emptyUser);
             state.user = emptyUser;
+            // TODO: reload page?
         }
     },
     actions: {
@@ -46,6 +47,7 @@ export default new Vuex.Store({
         [USER_SIGNIN_SUCCESS]({commit}, user) {
             commit(SET_USER_DATA, user);
             commit(HIDE_SIGNIN_MODAL);
+            // TODO: reload page?
         }
     },
     modules: {
