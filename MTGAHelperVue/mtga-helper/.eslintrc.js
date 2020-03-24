@@ -3,6 +3,7 @@ module.exports = {
     env: {
         browser: true
     },
+    //https://eslint-plugin-vue-i18n.intlify.dev/
     extends: ['airbnb-base', 'plugin:vue/recommended', 'prettier', 'prettier/vue'],
     plugins: ['prettier', 'vue'],
     parserOptions: {

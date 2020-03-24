@@ -2,29 +2,28 @@
 
 <nav class="mtgah-header navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <router-link to="/" title="Home">
-            <img class="is-hidden-desktop-only" src="../assets/wcC.png">
+        <router-link to="/" :title="$t('home')">
+            <img src="../assets/wcC.png"> <!--class="is-hidden-desktop-only"-->
         </router-link>
-        <router-link to="/News" title="Latest MTGA information"
+        <router-link to="/News" :title="$t('newsTooltip')"
                      class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
-            News
+            {{$t('news')}}
         </router-link>
-        <router-link to="/Articles" title="Useful reading material"
+        <router-link to="/Articles" :title="$t('articlesTooltip')"
                      class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
-            Articles
+            {{$t('articles')}}
         </router-link>
-        <router-link to="/Meta" title="Be competitive"
+        <router-link to="/Meta" :title="$t('metaTooltip')"
                      class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
-            Meta
+            {{$t('meta')}}
         </router-link>
-        <router-link to="/Decks" title="Browse all decks"
+        <router-link to="/Decks" :title="$t('decksTooltip')"
                      class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
-            Decks
+            {{$t('decks')}}
         </router-link>
         <div v-if="!isAuthenticated" class="is-hidden-desktop navbar-item">
-            <a class="button tooltip is-tooltip-bottom" title="You are anonymous, sign-in to keep a history of your data."
-                @click="showModalLogin">
-                Sign-in
+            <a class="button tooltip is-tooltip-bottom" :title="$t('showSignInModalTooltip')" @click="showModalLogin">
+                {{$t('signIn')}}
                 <i class="fas fa-sign-in-alt" style="margin-left:0.5rem;"></i>
             </a>
         </div>
@@ -221,35 +220,32 @@
                     </a>
                 </div>
             </div> -->
-            <!-- <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     <i class="fas fa-cog is-size-4" style="margin-right:0.2rem;"></i>
                 </a>
                 <div class="navbar-dropdown">
-                    <a v-if="modelAccount.isAuthenticated" href="/profile" class="navbar-item"
-                        :class="currentPage === constants.pageProfile ? 'bold' : ''"
-                        @click.prevent="loadPage(constants.pageProfile);">
+                    <router-link v-if="isAuthenticated" to="/Profile" :title="$t('profile')"
+                                class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
                         <i class="fas fa-user-cog" style="margin-right:0.5rem; width:1rem;"></i>
-                        Profile
-                    </a>
-                    <a href="/lands" class="navbar-item"
-                        :class="currentPage === constants.pageLands ? 'bold' : ''"
-                        @click.prevent="if (modelLands.length === 0) { getLands(); } loadPage(constants.pageLands);">
+                        {{$t('profile')}}
+                    </router-link>
+                    <router-link to="/Lands" :title="$t('lands')"
+                                class="navbar-item tooltip is-tooltip-right is-size-7-desktop is-size-6-widescreen">
                         <img src="https://img.scryfall.com/cards/border_crop/front/0/2/023d333b-14f2-40ad-bb76-8b9e38040f89.jpg?1562730596"
                             style="margin-right:0.5rem; width:1rem;" />
-                        Lands
-                    </a>
+                        {{$t('lands')}}
+                    </router-link>
                 </div>
-            </div> -->
+            </div>
             <div v-if="isAuthenticated" class="navbar-item">
                 <div class="buttons">
-                    <button class="button" @click="signOut">Sign-out</button>
+                    <button class="button" @click="signOut">{{$t('signOut')}}</button>
                 </div>
             </div>
             <div v-else class="navbar-item is-hidden-touch">
-                <a class="button tooltip is-tooltip-left" data-tooltip="You are anonymous, sign-in to keep a history of your data."
-                    @click="showModalLogin">
-                    Sign-in
+                <a class="button tooltip is-tooltip-left" :title="$t('showSignInModalTooltip')" @click="showModalLogin">
+                    {{$t('signIn')}}
                     <i class="fas fa-sign-in-alt" style="margin-left:0.5rem;"></i>
                 </a>
             </div>
@@ -338,7 +334,6 @@ export default {
     computed: mapState({
         isAuthenticated: (state) => state.user.isAuthenticated
     }),
-    mounted() {},
     methods: {
         toggleNavbarBurger() {
             this.navbarBurgerActive = !this.navbarBurgerActive;

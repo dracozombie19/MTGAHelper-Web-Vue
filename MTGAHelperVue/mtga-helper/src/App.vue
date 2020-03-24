@@ -14,7 +14,7 @@ import MTGAHHeader from '@/components/mtgah-header.vue';
 import store from '@/store/index';
 
 export default {
-    name: 'App',
+    name: 'MTGArenaHelper',
     store,
     components: {
         MTGAHFooter,
