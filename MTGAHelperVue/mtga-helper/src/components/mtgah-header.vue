@@ -36,26 +36,7 @@
     </div>
     <div id="navbarTop" class="navbar-menu" :class="navbarBurgerActive ? 'is-active' : ''">
         <div class="navbar-end">
-            <!-- <div class="navbar-item has-text-centered tooltip is-tooltip-bottom is-tooltip-multiline"
-                :data-tooltip="topAds[0].tooltip" style="padding:0 inherit;">
-                <a :href="topAds[0].href" target="_blank">
-                    <img :src="topAds[0].img" :alt="topAd.text"
-                        style="height:52px; vertical-align:middle;" />
-                </a>
-            </div> -->
-            <!-- <div v-if="modelUser.isSupporter === false && topAd.href !== topAds[0].href"
-                class="navbar-item has-text-centered is-hidden-desktop-only tooltip is-tooltip-bottom is-tooltip-multiline"
-                :data-tooltip="topAd.tooltip" style="padding:0 inherit;">
-                <a :href="topAd.href" target="_blank">
-                    <img :src="topAd.img" :alt="topAd.text"
-                        style="height:52px; vertical-align:middle;" />
-                </a>
-            </div> -->
-            <!-- <div v-if="modelUser.isSupporter"
-                class="navbar-item has-text-centered is-hidden-desktop-only tooltip is-tooltip-bottom"
-                data-tooltip="Thank you so much for being a Patreon supporter">
-                <i class="fas fa-heart" style="color: rgb(191, 0, 0);"></i>
-            </div> -->
+            <AdBanner />
             <!-- <div class="navbar-item is-hidden-touch">
                 <div class="buttons">
                     <a class="button tooltip is-tooltip-bottom"
@@ -320,11 +301,13 @@ import { mapState } from 'vuex';
 import { SHOW_SIGNIN_MODAL, RESET_USER_DATA } from '@/store/mutations';
 import AuthenService from '@/common/AuthenService';
 import AuthModal from './Authentication/mtgah-auth-modal.vue';
+import AdBanner from './mtgah-ad-banner.vue';
 
 export default {
     name: 'MtgahHeader',
     components: {
-        AuthModal
+        AuthModal,
+        AdBanner
     },
     data() {
         return {
