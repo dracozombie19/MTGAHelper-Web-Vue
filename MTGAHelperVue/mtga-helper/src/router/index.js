@@ -54,6 +54,10 @@ const routes = [
     path: '/Profile',
     name: i18n.t('profile'),
       component: () => import( /* webpackChunkName: "Profile" */ '../views/Profile.vue'),
+  }, {
+    path: '/my/Collection',
+    name: i18n.t('collection'),
+      component: () => import( /* webpackChunkName: "Collection" */ '../views/my/Collection.vue'),
   }
 ];
 

@@ -1,7 +1,23 @@
 {
     "about": "About",
+    "ads": {
+        "amazon": {
+            "text": "Shop Amazon",
+            "tooltip": "Help improve the services simply by using this link for your Amazon purchases. Thanks to all supporters!"
+        },
+        "patreon": {
+            "text": "Join us on Patreon",
+            "thanks": "Thank you so much for being a Patreon supporter",
+            "tooltip": "Join us on Patreon if you like this service and wish to show your appreciation 💪 Thanks to all supporters!"
+        },
+        "paypal": {
+            "text": "Contribute to the coffee fund",
+            "tooltip": "Contribute to the coffee fund ☕ Thanks to all supporters!"
+        }
+    },
     "articles": "Articles",
     "articlesTooltip": "Useful reading material",
+    "collection": "Collection",
     "contact": "Contact",
     "decks": "Decks",
     "decksTooltip": "Browse all decks",
@@ -24,20 +40,5 @@
     "termsOfUse": "Terms of Use",
     "withFacebook": "With Facebook",
     "withGoogle": "With Google",
-    "withLocalAccount": "with a local account",
-    "ads": {
-        "amazon": {
-            "text": "Shop Amazon",
-            "tooltip": "Help improve the services simply by using this link for your Amazon purchases. Thanks to all supporters!"
-        },
-        "patreon": {
-            "text": "Join us on Patreon",
-            "tooltip": "Join us on Patreon if you like this service and wish to show your appreciation 💪 Thanks to all supporters!",
-            "thanks": "Thank you so much for being a Patreon supporter"
-        },
-        "paypal": {
-            "text": "Contribute to the coffee fund",
-            "tooltip": "Contribute to the coffee fund ☕ Thanks to all supporters!"
-        }
-    }
+    "withLocalAccount": "with a local account"
 }

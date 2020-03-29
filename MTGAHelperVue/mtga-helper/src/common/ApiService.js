@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import { API_URL } from "@/common/config";
+import * as constants from '@/common/constants';
 
 export const ApiService = {
 
@@ -33,10 +34,10 @@ export const ApiService = {
       xmlhttp.send(body);
   },
   axiosResponseHandler(response) {
-    return {status: 'success', data: response.data};
+    return {status: constants.success, data: response.data};
   },
   axiosErrorHandler(error) {
-      return {status: 'error', data: error};
+      return {status: constants.error, data: error};
   },
   sendAjaxGet (url) {
       return Vue.axios.get(API_URL + url)

@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import {SHOW_SIGNIN_MODAL, HIDE_SIGNIN_MODAL, SET_USER_DATA, RESET_USER_DATA} from '@/store/mutations';
 import {USER_SIGNIN_SUCCESS} from '@/store/actions';
+import * as constants from '@/common/constants';
 import util from '@/common/util';
+import {UserService} from '../common/UserService';
 
 Vue.use(Vuex);
 
@@ -13,7 +15,8 @@ const emptyUser = {
     isAuthenticated: false,
     status: null,
     responseStatus: null,
-    message: null
+    message: null,
+    collection: {}
 };
 
 export default new Vuex.Store({
@@ -45,9 +48,20 @@ export default new Vuex.Store({
     actions: {
         // {commit} means to get the 'commit' property from the context object passed in as the first arg
         [USER_SIGNIN_SUCCESS]({commit}, user) {
-            commit(SET_USER_DATA, user);
-            commit(HIDE_SIGNIN_MODAL);
-            // TODO: reload page?
+            UserService.getCollection().then(function getCollectionHandler(response) {
+                console.log('getCollectionHandler', response);
+                const newUser = {...user};
+
+                if (response.status === constants.success) {
+                    newUser.collection = response.data;
+                } else {
+                    newUser.collection = {};
+                }
+
+                console.log(newUser);
+                commit(SET_USER_DATA, newUser);
+                commit(HIDE_SIGNIN_MODAL);
+            });
         }
     },
     modules: {
