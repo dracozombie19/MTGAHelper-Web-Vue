@@ -3,7 +3,7 @@
         <div class="field">
             <div class="control">
                 <label class="label is-small">{{$t('email')}}</label>
-                <input id="txtSigninEmail"
+                <input :id="$id('txtSigninEmail')"
                        v-model="email"
                        name="txtSigninInEmail"
                        class="input is-small"

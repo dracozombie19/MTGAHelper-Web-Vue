@@ -2,12 +2,14 @@ import Vue from 'vue';
 import Toasted from 'vue-toasted';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import UniqueId from 'vue-unique-id';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import i18n from './i18n';
 
+Vue.use(UniqueId);
 Vue.use(VueAxios, axios);
 
 // Add a request interceptor
